@@ -4,10 +4,18 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 public class Pregled {
-	private LinkedList<Lekar> lekari;
+	private Lekar lekar;
 	private Pacijent pacijent;
 	private String vrstaPregleda;
 	private GregorianCalendar datumIVreme;
+	
+	
+	public Lekar getLekar() {
+		return lekar;
+	}
+	public void setLekar(Lekar lekar) {
+		this.lekar = lekar;
+	}
 	public String getVrstaPregleda() {
 		return vrstaPregleda;
 	}
@@ -26,4 +34,11 @@ public class Pregled {
 	public void setPacijent(Pacijent pacijent) {
 		this.pacijent = pacijent;
 	}
+	public String IzvestajZaPacijenta() {
+		return "Vrsta pregleda: " + vrstaPregleda+ "	Datum i vreme: " + datumIVreme 
+				+ "	Lekar: " + lekar.getImeIPrezime();
+	}
+	
+	
+	
 }

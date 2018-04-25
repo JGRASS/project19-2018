@@ -11,6 +11,7 @@ public class Pacijent {
 	private String datumRodjenja;
 	private Lekar izabraniLekar;
 	
+	private LinkedList<Lekar> lekari;
 	private LinkedList<Pregled> zakazaniPregledi;
 	private LinkedList<Pregled> istorijaPregleda;
 	
@@ -39,6 +40,24 @@ public class Pacijent {
 		this.izabraniLekar = izabraniLekar;
 	}
 	
+	public void stampajIstoriju() {
+		for (int i = 0; i < istorijaPregleda.size(); i++) {
+			System.out.println(istorijaPregleda.get(i).IzvestajZaPacijenta());
+		}
+	}
+	
+	public void stampajZakazanePreglede() {
+		for (int i = 0; i < zakazaniPregledi.size(); i++) {
+			System.out.println(zakazaniPregledi.get(i).IzvestajZaPacijenta());
+		}
+	}
+	
+	public void izaberiLekara(String imePrezime) {
+		for (int i = 0; i < lekari.size(); i++) {
+			if(lekari.get(i).getImeIPrezime().equals(imePrezime))
+				setIzabraniLekar(lekari.get(i));
+		}
+	}
 	
 	
 }
