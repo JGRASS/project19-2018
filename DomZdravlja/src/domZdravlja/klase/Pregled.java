@@ -9,7 +9,6 @@ public class Pregled {
 	private String vrstaPregleda;
 	private GregorianCalendar datumIVreme;
 	
-	
 	public Lekar getLekar() {
 		return lekar;
 	}

@@ -1,6 +1,5 @@
 package domZdravlja.klase;
 
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 
@@ -12,8 +11,8 @@ public class Pacijent {
 	private Lekar izabraniLekar;
 	
 	private LinkedList<Lekar> lekari;
-	private LinkedList<Pregled> zakazaniPregledi;
-	private LinkedList<Pregled> istorijaPregleda;
+	public LinkedList<Pregled> zakazaniPregledi;
+	public LinkedList<Pregled> istorijaPregleda;
 	
 	public String getImePrezime() {
 		return imePrezime;
@@ -40,16 +39,20 @@ public class Pacijent {
 		this.izabraniLekar = izabraniLekar;
 	}
 	
-	public void stampajIstoriju() {
+	public String Istorija() {
+		String s = "";
 		for (int i = 0; i < istorijaPregleda.size(); i++) {
-			System.out.println(istorijaPregleda.get(i).IzvestajZaPacijenta());
+			s = s + System.lineSeparator() +  istorijaPregleda.get(i).IzvestajZaPacijenta();
 		}
+		return s;
 	}
 	
-	public void stampajZakazanePreglede() {
+	public String ZakazaniPregledi() {
+		String s = "";
 		for (int i = 0; i < zakazaniPregledi.size(); i++) {
-			System.out.println(zakazaniPregledi.get(i).IzvestajZaPacijenta());
+			s = s + System.lineSeparator() + zakazaniPregledi.get(i).IzvestajZaPacijenta();
 		}
+		return s;
 	}
 	
 	public void izaberiLekara(String imePrezime) {

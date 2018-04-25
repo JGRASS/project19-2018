@@ -126,7 +126,7 @@ public class DodajPacijentaGUI extends JFrame {
 					p.setLbo(textField_1.getText());
 					p.setIzabraniLekar((Lekar)comboBox.getSelectedItem());
 					gp.pacijenti.add(p);
-					PacijentGUI pg = new PacijentGUI();
+					PacijentGUI pg = new PacijentGUI(p);
 					pg.setTitle(p.getImePrezime() + " LBO: " +p.getLbo());
 					pg.setVisible(true);
 					dispose();
