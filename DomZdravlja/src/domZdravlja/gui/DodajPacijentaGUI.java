@@ -11,6 +11,7 @@ import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pacijent;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -33,6 +34,7 @@ public class DodajPacijentaGUI extends JFrame {
 	private GlavniProzorGUI gp;
 	private JButton btnNapraviNalog;
 	private JButton btnOdustani;
+
 	/**
 	 * Create the frame.
 	 */
@@ -55,6 +57,7 @@ public class DodajPacijentaGUI extends JFrame {
 		contentPane.add(getBtnOdustani());
 		this.gp = gp;
 	}
+
 	private JLabel getLblUnesiteVaseIme() {
 		if (lblUnesiteVaseIme == null) {
 			lblUnesiteVaseIme = new JLabel("Unesite Vase ime i prezime");
@@ -62,6 +65,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return lblUnesiteVaseIme;
 	}
+
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
@@ -70,6 +74,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return textField;
 	}
+
 	private JLabel getLblLbo() {
 		if (lblLbo == null) {
 			lblLbo = new JLabel("LBO");
@@ -77,6 +82,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return lblLbo;
 	}
+
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
@@ -85,6 +91,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return textField_1;
 	}
+
 	private JLabel getLblDatumRodjenja() {
 		if (lblDatumRodjenja == null) {
 			lblDatumRodjenja = new JLabel("Datum rodjenja");
@@ -92,6 +99,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return lblDatumRodjenja;
 	}
+
 	private JTextField getTextField_2() {
 		if (textField_2 == null) {
 			textField_2 = new JTextField();
@@ -100,6 +108,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return textField_2;
 	}
+
 	private JLabel getLblIzabraniLekar() {
 		if (lblIzabraniLekar == null) {
 			lblIzabraniLekar = new JLabel("Izabrani lekar");
@@ -107,6 +116,7 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return lblIzabraniLekar;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
@@ -115,27 +125,37 @@ public class DodajPacijentaGUI extends JFrame {
 		}
 		return comboBox;
 	}
+
 	private JButton getBtnNapraviNalog() {
 		if (btnNapraviNalog == null) {
 			btnNapraviNalog = new JButton("Napravi nalog");
 			btnNapraviNalog.addActionListener(new ActionListener() {
+				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
-					Pacijent p = new Pacijent();
-					p.setDatumRodjenja(textField_2.getText());
-					p.setImePrezime(textField.getText());
-					p.setLbo(textField_1.getText());
-					p.setIzabraniLekar((Lekar)comboBox.getSelectedItem());
-					gp.pacijenti.add(p);
-					PacijentGUI pg = new PacijentGUI(p);
-					pg.setTitle(p.getImePrezime() + " LBO: " +p.getLbo());
-					pg.setVisible(true);
-					dispose();
+					if (textField.getText() == null || textField.getText().isEmpty() || textField_1.getText() == null
+							|| textField_1.getText().isEmpty() || textField_2.getText() == null
+							|| textField_2.getText().isEmpty()) {
+						JOptionPane j = new JOptionPane();
+						j.showMessageDialog(j, "Sva polja moraju biti popunjena.","Greska!",j.ERROR_MESSAGE);
+					} else {
+						Pacijent p = new Pacijent();
+						p.setDatumRodjenja(textField_2.getText());
+						p.setImePrezime(textField.getText());
+						p.setLbo(textField_1.getText());
+						p.setIzabraniLekar((Lekar) comboBox.getSelectedItem());
+						gp.pacijenti.add(p);
+						PacijentGUI pg = new PacijentGUI(p);
+						pg.setTitle(p.getImePrezime() + " LBO: " + p.getLbo());
+						pg.setVisible(true);
+						dispose();
+					}
 				}
 			});
 			btnNapraviNalog.setBounds(12, 215, 116, 25);
 		}
 		return btnNapraviNalog;
 	}
+
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");
