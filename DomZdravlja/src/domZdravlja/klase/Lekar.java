@@ -57,7 +57,10 @@ public class Lekar {
 	}
 
 	public void setSifra(String sifra) {
-		this.sifra = sifra;
+		if (sifra != null && sifra.length() == 7)
+			this.sifra = sifra;
+		else
+			throw new RuntimeException("Greska, sifra mora biti duzine 7.");
 	}
 
 }

@@ -102,7 +102,7 @@ public class OtvoriLekaraGUI extends JFrame {
 					}
 					else {
 						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Greška prilikom prijavljivanja. ID i lozinka moraju imati po 10 karaktera."
+						j.showMessageDialog(j, "Greška prilikom prijavljivanja. ID i lozinka moraju imati po 7 karaktera."
 								+ "\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
 					}
 				}
