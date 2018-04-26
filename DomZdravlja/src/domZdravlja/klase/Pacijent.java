@@ -8,8 +8,8 @@ public class Pacijent {
 
 	private String imePrezime;
 	private String lbo;
-	private GregorianCalendar datumRodjenja;
-	//private Lekar izabraniLekar;
+	private String datumRodjenja;
+	private Lekar izabraniLekar;
 	
 	private LinkedList<Pregled> zakazaniPregledi;
 	private LinkedList<Pregled> istorijaPregleda;
@@ -26,12 +26,19 @@ public class Pacijent {
 	public void setLbo(String lbo) {
 		this.lbo = lbo;
 	}
-	public GregorianCalendar getDatumRodjenja() {
+	public String getDatumRodjenja() {
 		return datumRodjenja;
 	}
-	public void setDatumRodjenja(GregorianCalendar datumRodjenja) {
+	public void setDatumRodjenja(String datumRodjenja) {
 		this.datumRodjenja = datumRodjenja;
 	}
+	public Lekar getIzabraniLekar() {
+		return izabraniLekar;
+	}
+	public void setIzabraniLekar(Lekar izabraniLekar) {
+		this.izabraniLekar = izabraniLekar;
+	}
+	
 	
 	
 }

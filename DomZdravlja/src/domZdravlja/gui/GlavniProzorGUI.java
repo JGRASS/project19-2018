@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import domZdravlja.klase.Lekar;
+import domZdravlja.klase.Pacijent;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -17,8 +21,10 @@ public class GlavniProzorGUI extends JFrame {
 	private JPanel contentPane;
 	private JButton btnLekar;
 	private JButton btnPacijent;
-	//private LinkedList<Lekar> lekari;
-	//private LinkedList<Pacijent> pacijenti;
+	public LinkedList<Lekar> lekari = new LinkedList<Lekar>();
+	public LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
+	
+	private GlavniProzorGUI gp;
 	/**
 	 * Launch the application.
 	 */
@@ -48,6 +54,15 @@ public class GlavniProzorGUI extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getBtnLekar());
 		contentPane.add(getBtnPacijent());
+		this.gp = this;
+		//Narednih par linija koda su proba, ubacujem lekara u listu da ne bi bila prazna, da bih mogao da testiram
+		Lekar l = new Lekar();
+		l.setIDLekara("1234567");
+		l.setImeIPrezime("Bojan Car");
+		l.setPregledi(null);
+		l.setSifra("1234567");
+		l.setSpecijalizacija("Ginekolog");
+		lekari.add(l);
 	}
 
 	private JButton getBtnLekar() {
@@ -55,7 +70,7 @@ public class GlavniProzorGUI extends JFrame {
 			btnLekar = new JButton("Lekar");
 			btnLekar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					OtvoriLekaraGUI o = new OtvoriLekaraGUI();
+					OtvoriLekaraGUI o = new OtvoriLekaraGUI(gp);
 					o.setVisible(true);
 				}
 			});
@@ -68,7 +83,7 @@ public class GlavniProzorGUI extends JFrame {
 			btnPacijent = new JButton("Pacijent");
 			btnPacijent.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					OtvoriPacijentaGUI o = new OtvoriPacijentaGUI();
+					OtvoriPacijentaGUI o = new OtvoriPacijentaGUI(gp);
 					o.setVisible(true);
 				}
 			});

@@ -17,23 +17,6 @@ public class LekarGUI extends JFrame {
 	private JPanel contentPane;
 	private JButton btnZakaziPregledKod;
 	private JButton btnPrikaziZakazanePreglede;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LekarGUI frame = new LekarGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */

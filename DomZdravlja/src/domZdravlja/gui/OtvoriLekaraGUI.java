@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import domZdravlja.klase.Lekar;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,14 +26,14 @@ public class OtvoriLekaraGUI extends JFrame {
 	private JLabel lblUnesiteVaId;
 	private JTextField textField;
 	private JLabel lblUnesiteVauLozinku;
-	private JPasswordField passwordField;
 	private JButton btnPotvrdi;
 	private JButton btnOdustani;
-
+	private GlavniProzorGUI gp;
+	private JTextField textField_1;
 	/**
 	 * Create the frame.
 	 */
-	public OtvoriLekaraGUI() {
+	public OtvoriLekaraGUI(GlavniProzorGUI gp) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -40,9 +43,10 @@ public class OtvoriLekaraGUI extends JFrame {
 		contentPane.add(getLblUnesiteVaId());
 		contentPane.add(getTextField());
 		contentPane.add(getLblUnesiteVauLozinku());
-		contentPane.add(getPasswordField());
 		contentPane.add(getBtnPotvrdi());
 		contentPane.add(getBtnOdustani());
+		contentPane.add(getTextField_1());
+		this.gp = gp;
 	}
 
 	private JLabel getLblUnesiteVaId() {
@@ -55,17 +59,6 @@ public class OtvoriLekaraGUI extends JFrame {
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
-			textField.addKeyListener(new KeyAdapter() {
-				@Override//Ogranicava korisnika na unos iskljucivo cifara
-				public void keyTyped(KeyEvent e) {
-					char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)
-                            || (vChar == KeyEvent.VK_BACK_SPACE)
-                            || (vChar == KeyEvent.VK_DELETE))) {
-                        e.consume();
-                    }
-				}
-			});
 			textField.setBounds(228, 51, 116, 22);
 			textField.setColumns(10);
 		}
@@ -78,40 +71,39 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return lblUnesiteVauLozinku;
 	}
-	private JPasswordField getPasswordField() {
-		if (passwordField == null) {
-			passwordField = new JPasswordField();
-			passwordField.addKeyListener(new KeyAdapter() {
-				@Override//Ogranicava korisnika na unos iskljucivo cifara
-				public void keyTyped(KeyEvent e) {
-					char vChar = e.getKeyChar();
-                    if (!(Character.isDigit(vChar)
-                            || (vChar == KeyEvent.VK_BACK_SPACE)
-                            || (vChar == KeyEvent.VK_DELETE))) {
-                        e.consume();
-                    }
-				}
-			});
-			passwordField.setBounds(228, 118, 116, 22);
+	@SuppressWarnings("unlikely-arg-type")
+	private Lekar vratiLekara(String lozinka,String ID) {
+		for (int i = 0; i < gp.lekari.size(); i++) {
+			if (gp.lekari.get(i).getIDLekara().equals(ID) && gp.lekari.get(i).getSifra().equals(lozinka)) {
+				return gp.lekari.get(i);
+			}
 		}
-		return passwordField;
+		return null;
 	}
 	private JButton getBtnPotvrdi() {
 		if (btnPotvrdi == null) {
 			btnPotvrdi = new JButton("Potvrdi");
 			btnPotvrdi.addActionListener(new ActionListener() {
+				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
 					String ID = textField.getText();
-					char[] lozinka = passwordField.getPassword();
-					if (lozinka.length == 10 && ID.length() == 10) {
-						/*
-						 * Znaci da je lozinka OK i pristupa se prozoru LekarGUI
-						 * stavio sam random da je velicina lozinke i id-a 10, to mozemo promeniti
-						 */
+					String lozinka = textField_1.getText();
+					if (lozinka.length() == 7 && ID.length() == 7) {
+						Lekar l = vratiLekara(lozinka,ID);
+						if (l == null) {
+							JOptionPane j = new JOptionPane();
+							j.showMessageDialog(j, "Greška prilikom prijavljivanja. Ne postoji lekar sa unetim ID-om i lozinkom."
+									+ "\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
+						}
+						else {
+							LekarGUI lg = new LekarGUI();
+							lg.setVisible(true);
+						}
 					}
 					else {
 						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Greška prilikom prijavljivanja.\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
+						j.showMessageDialog(j, "Greška prilikom prijavljivanja. ID i lozinka moraju imati po 10 karaktera."
+								+ "\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -130,5 +122,13 @@ public class OtvoriLekaraGUI extends JFrame {
 			btnOdustani.setBounds(247, 183, 97, 25);
 		}
 		return btnOdustani;
+	}
+	private JTextField getTextField_1() {
+		if (textField_1 == null) {
+			textField_1 = new JTextField();
+			textField_1.setBounds(228, 118, 116, 22);
+			textField_1.setColumns(10);
+		}
+		return textField_1;
 	}
 }

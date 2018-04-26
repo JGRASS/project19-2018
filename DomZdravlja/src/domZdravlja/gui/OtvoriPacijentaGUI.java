@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import domZdravlja.klase.Pacijent;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -22,10 +25,11 @@ public class OtvoriPacijentaGUI extends JFrame {
 	private JTextField textFieldLBO;
 	private JButton btnPotvrdi;
 	private JButton btnOdustani;
+	private GlavniProzorGUI gp;
 	/**
 	 * Create the frame.
 	 */
-	public OtvoriPacijentaGUI() {
+	public OtvoriPacijentaGUI(GlavniProzorGUI gp) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -36,6 +40,7 @@ public class OtvoriPacijentaGUI extends JFrame {
 		contentPane.add(getTextFieldLBO());
 		contentPane.add(getBtnPotvrdi());
 		contentPane.add(getBtnOdustani());
+		this.gp = gp;
 	}
 
 	private JLabel getLblUnesiteVašLbo() {
@@ -48,39 +53,40 @@ public class OtvoriPacijentaGUI extends JFrame {
 	private JTextField getTextFieldLBO() {
 		if (textFieldLBO == null) {
 			textFieldLBO = new JTextField();
-			textFieldLBO.addKeyListener(new KeyAdapter() {
-				@Override//Ogranicava korisnika na unos iskljucivo cifara
-				public void keyTyped(KeyEvent arg0) {
-					char vChar = arg0.getKeyChar();
-                    if (!(Character.isDigit(vChar)
-                            || (vChar == KeyEvent.VK_BACK_SPACE)
-                            || (vChar == KeyEvent.VK_DELETE))) {
-                        arg0.consume();
-                    }
-				}
-			});
 			textFieldLBO.setBounds(181, 65, 116, 22);
 			textFieldLBO.setColumns(11);
 		}
 		return textFieldLBO;
 	}
+	private Pacijent vratiPacijenta(String LBO) {
+		for (int i = 0; i < gp.pacijenti.size(); i++) {
+			if (gp.pacijenti.get(i).getLbo().equals(LBO)) {
+				return gp.pacijenti.get(i);
+			}
+		}
+		return null;
+	}
 	private JButton getBtnPotvrdi() {
 		if (btnPotvrdi == null) {
 			btnPotvrdi = new JButton("Potvrdi");
 			btnPotvrdi.addActionListener(new ActionListener() {
+				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
-					boolean LBOB = true;
 					String LBO = textFieldLBO.getText();
 					if (LBO.length() == 11) {
-						/*
-						 * Ovo znaci da je dobro unesem LBO(jer su sve cifre i ima ih 11)
-						 *  i da se onda pristupa jednom od dva prozora u zavisnosti da li
-						 * je novi pacijent ili vec postoji u listi
-						 */
+						Pacijent p = vratiPacijenta(LBO);
+						if (p == null) {
+							JOptionPane j = new JOptionPane();
+							int opcija = j.showConfirmDialog(j, "Ne postoji pacijent sa unetim LBO. Napravi nalog?", "Greska!",j.INFORMATION_MESSAGE, j.YES_NO_OPTION);
+							if (opcija == JOptionPane.YES_OPTION) {
+								DodajPacijentaGUI dp = new DodajPacijentaGUI(gp);
+								dp.setVisible(true);
+							}					
+						}
 					}
 					else {
 						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Pogresno unet LBO.\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
+						j.showMessageDialog(j, "Pogresno unet LBO. Mora imati 11 znakova.\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
 					}
 				}
 			});

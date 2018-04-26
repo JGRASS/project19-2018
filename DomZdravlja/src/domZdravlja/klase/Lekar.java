@@ -7,6 +7,7 @@ public class Lekar {
 	private String IDLekara;
 	private String imeIPrezime;
 	private String specijalizacija;
+	private String sifra;
 	private LinkedList<Pregled> pregledi;
 	private LinkedList<Pacijent> pacijenti;
 
@@ -49,6 +50,14 @@ public class Lekar {
 
 	public void setPregledi(LinkedList<Pregled> pregledi) {
 		this.pregledi = pregledi;
+	}
+
+	public String getSifra() {
+		return sifra;
+	}
+
+	public void setSifra(String sifra) {
+		this.sifra = sifra;
 	}
 
 }

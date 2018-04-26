@@ -1,72 +1,73 @@
 package domZdravlja.gui;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class PacijentGUI {
+public class PacijentGUI extends JFrame {
 
-	private JFrame frmPacijent;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PacijentGUI window = new PacijentGUI();
-					window.frmPacijent.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPanel contentPane;
+	private JButton btnPrikaziIstorijuPregleda;
+	private JButton btnPrikaziZakazanePreglede;
+	private JButton btnPromeniLekara;
+	private JButton btnZakaziPregled;
+	private JButton btnOtkaziPregled;
+	
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public PacijentGUI() {
-		initialize();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(getBtnPrikaziIstorijuPregleda());
+		contentPane.add(getBtnPrikaziZakazanePreglede());
+		contentPane.add(getBtnPromeniLekara());
+		contentPane.add(getBtnZakaziPregled());
+		contentPane.add(getBtnOtkaziPregled());
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmPacijent = new JFrame();
-		frmPacijent.setTitle("Pacijent");
-		frmPacijent.setBounds(100, 100, 450, 300);
-		frmPacijent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmPacijent.getContentPane().setLayout(null);
-		
-		JButton btnZakaziPregled = new JButton("Zakazi pregled");
-		btnZakaziPregled.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnZakaziPregled.setBounds(259, 82, 120, 40);
-		frmPacijent.getContentPane().add(btnZakaziPregled);
-		
-		JButton btnOtkaziPregled = new JButton("Otkazi pregled");
-		btnOtkaziPregled.setBounds(259, 134, 120, 41);
-		frmPacijent.getContentPane().add(btnOtkaziPregled);
-		
-		JButton btnPromeniLekara = new JButton("Promeni lekara");
-		btnPromeniLekara.setBounds(259, 28, 120, 32);
-		frmPacijent.getContentPane().add(btnPromeniLekara);
-		
-		JButton btnPrikaziIstorijuPregleda = new JButton("Prikazi istoriju pregleda");
-		btnPrikaziIstorijuPregleda.setBounds(44, 42, 167, 40);
-		frmPacijent.getContentPane().add(btnPrikaziIstorijuPregleda);
-		
-		JButton btnPrikaziZakazanePreglede = new JButton("Prikazi zakazane preglede");
-		btnPrikaziZakazanePreglede.setBounds(44, 117, 167, 40);
-		frmPacijent.getContentPane().add(btnPrikaziZakazanePreglede);
+	private JButton getBtnPrikaziIstorijuPregleda() {
+		if (btnPrikaziIstorijuPregleda == null) {
+			btnPrikaziIstorijuPregleda = new JButton("Prikazi istoriju pregleda");
+			btnPrikaziIstorijuPregleda.setBounds(27, 59, 181, 25);
+		}
+		return btnPrikaziIstorijuPregleda;
+	}
+	private JButton getBtnPrikaziZakazanePreglede() {
+		if (btnPrikaziZakazanePreglede == null) {
+			btnPrikaziZakazanePreglede = new JButton("Prikazi zakazane preglede");
+			btnPrikaziZakazanePreglede.setBounds(27, 136, 181, 25);
+		}
+		return btnPrikaziZakazanePreglede;
+	}
+	private JButton getBtnPromeniLekara() {
+		if (btnPromeniLekara == null) {
+			btnPromeniLekara = new JButton("Promeni lekara");
+			btnPromeniLekara.setBounds(275, 31, 125, 25);
+		}
+		return btnPromeniLekara;
+	}
+	private JButton getBtnZakaziPregled() {
+		if (btnZakaziPregled == null) {
+			btnZakaziPregled = new JButton("Zakazi pregled");
+			btnZakaziPregled.setBounds(275, 97, 125, 25);
+		}
+		return btnZakaziPregled;
+	}
+	private JButton getBtnOtkaziPregled() {
+		if (btnOtkaziPregled == null) {
+			btnOtkaziPregled = new JButton("Otkazi pregled");
+			btnOtkaziPregled.setBounds(275, 168, 125, 25);
+		}
+		return btnOtkaziPregled;
 	}
 }
