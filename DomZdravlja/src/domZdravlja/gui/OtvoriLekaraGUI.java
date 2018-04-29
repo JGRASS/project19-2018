@@ -30,6 +30,7 @@ public class OtvoriLekaraGUI extends JFrame {
 	private JButton btnOdustani;
 	private GlavniProzorGUI gp;
 	private JTextField textField_1;
+
 	/**
 	 * Create the frame.
 	 */
@@ -56,6 +57,7 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return lblUnesiteVaId;
 	}
+
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
@@ -64,6 +66,7 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return textField;
 	}
+
 	private JLabel getLblUnesiteVauLozinku() {
 		if (lblUnesiteVauLozinku == null) {
 			lblUnesiteVauLozinku = new JLabel("Unesite Va\u0161u lozinku");
@@ -71,8 +74,9 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return lblUnesiteVauLozinku;
 	}
+
 	@SuppressWarnings("unlikely-arg-type")
-	private Lekar vratiLekara(String lozinka,String ID) {
+	private Lekar vratiLekara(String lozinka, String ID) {
 		for (int i = 0; i < gp.lekari.size(); i++) {
 			if (gp.lekari.get(i).getIDLekara().equals(ID) && gp.lekari.get(i).getSifra().equals(lozinka)) {
 				return gp.lekari.get(i);
@@ -80,6 +84,7 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return null;
 	}
+
 	private JButton getBtnPotvrdi() {
 		if (btnPotvrdi == null) {
 			btnPotvrdi = new JButton("Potvrdi");
@@ -89,21 +94,23 @@ public class OtvoriLekaraGUI extends JFrame {
 					String ID = textField.getText();
 					String lozinka = textField_1.getText();
 					if (lozinka.length() == 7 && ID.length() == 7) {
-						Lekar l = vratiLekara(lozinka,ID);
+						Lekar l = vratiLekara(lozinka, ID);
 						if (l == null) {
 							JOptionPane j = new JOptionPane();
-							j.showMessageDialog(j, "Greška prilikom prijavljivanja. Ne postoji lekar sa unetim ID-om i lozinkom."
-									+ "\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
-						}
-						else {
-							LekarGUI lg = new LekarGUI();
+							j.showMessageDialog(j,
+									"Greška prilikom prijavljivanja. Ne postoji lekar sa unetim ID-om i lozinkom."
+											+ "\nPokusajte ponovo.",
+									"Greska!", j.ERROR_MESSAGE);
+						} else {
+							LekarGUI lg = new LekarGUI(l);
 							lg.setVisible(true);
 						}
-					}
-					else {
+					} else {
 						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Greška prilikom prijavljivanja. ID i lozinka moraju imati po 7 karaktera."
-								+ "\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
+						j.showMessageDialog(j,
+								"Greška prilikom prijavljivanja. ID i lozinka moraju imati po 7 karaktera."
+										+ "\nPokusajte ponovo.",
+								"Greska!", j.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -111,6 +118,7 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return btnPotvrdi;
 	}
+
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");
@@ -123,6 +131,7 @@ public class OtvoriLekaraGUI extends JFrame {
 		}
 		return btnOdustani;
 	}
+
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();

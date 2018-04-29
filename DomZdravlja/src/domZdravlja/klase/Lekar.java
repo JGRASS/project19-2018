@@ -44,14 +44,6 @@ public class Lekar {
 			throw new RuntimeException("Greska, specijalizacija ne moze imati vrednost null.");
 	}
 
-	public LinkedList<Pregled> getPregledi() {
-		return pregledi;
-	}
-
-	public void setPregledi(LinkedList<Pregled> pregledi) {
-		this.pregledi = pregledi;
-	}
-
 	public String getSifra() {
 		return sifra;
 	}
@@ -61,6 +53,22 @@ public class Lekar {
 			this.sifra = sifra;
 		else
 			throw new RuntimeException("Greska, sifra mora biti duzine 7.");
+	}
+
+	public LinkedList<Pregled> getPregledi() {
+		return pregledi;
+	}
+
+	public void setPregledi(LinkedList<Pregled> pregledi) {
+		this.pregledi = pregledi;
+	}
+
+	public LinkedList<Pacijent> getPacijenti() {
+		return pacijenti;
+	}
+
+	public void setPacijenti(LinkedList<Pacijent> pacijenti) {
+		this.pacijenti = pacijenti;
 	}
 
 }

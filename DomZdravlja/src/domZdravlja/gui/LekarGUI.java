@@ -1,21 +1,18 @@
 package domZdravlja.gui;
 
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.awt.Dimension;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import domZdravlja.klase.Lekar;
+import domZdravlja.klase.Pregled;
 
 public class LekarGUI extends JFrame {
 
@@ -23,16 +20,15 @@ public class LekarGUI extends JFrame {
 	private JButton btnZakaziPregledKod;
 	private JButton btnPrikaziZakazanePreglede;
 	private JLabel lblImeIPrezime;
-	private JTextField textFieldImeIPrezime;
 	private JLabel lblId;
-	private JTextField textFieldID;
 	private JLabel lblSpecijalizacija;
-	private JTextField textFieldSpecijalizacija;
 	private JButton btnKrajRada;
+
 	/**
 	 * Create the frame.
 	 */
-	public LekarGUI() {
+	public LekarGUI(Lekar l) {
+
 		setTitle("Lekar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -41,15 +37,18 @@ public class LekarGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		contentPane.add(getLblImeIPrezime());
-		contentPane.add(getTextFieldImeIPrezime());
 		contentPane.add(getLblSpecijalizacija());
-		contentPane.add(getTextFieldSpecijalizacija());
 		contentPane.add(getLblId());
-		contentPane.add(getTextFieldID());
 		contentPane.add(getBtnZakaziPregledKod());
 		contentPane.add(getBtnPrikaziZakazanePreglede());
 		contentPane.add(getBtnKrajRada());
+
+		lblId.setText(lblId.getText() + " " + l.getIDLekara());
+		lblImeIPrezime.setText(lblImeIPrezime.getText() + " " + l.getImeIPrezime());
+		lblSpecijalizacija.setText(lblSpecijalizacija.getText() + " " + l.getSpecijalizacija());
+
 	}
+
 	private JButton getBtnZakaziPregledKod() {
 		if (btnZakaziPregledKod == null) {
 			btnZakaziPregledKod = new JButton("Zakazi pregled kod specijaliste");
@@ -63,6 +62,7 @@ public class LekarGUI extends JFrame {
 		}
 		return btnZakaziPregledKod;
 	}
+
 	private JButton getBtnPrikaziZakazanePreglede() {
 		if (btnPrikaziZakazanePreglede == null) {
 			btnPrikaziZakazanePreglede = new JButton("Prikazi zakazane preglede");
@@ -76,58 +76,38 @@ public class LekarGUI extends JFrame {
 		}
 		return btnPrikaziZakazanePreglede;
 	}
+
 	private JLabel getLblImeIPrezime() {
 		if (lblImeIPrezime == null) {
 			lblImeIPrezime = new JLabel("Ime i prezime: ");
-			lblImeIPrezime.setBounds(38, 13, 116, 16);
+			lblImeIPrezime.setBounds(38, 13, 298, 16);
 		}
 		return lblImeIPrezime;
 	}
-	private JTextField getTextFieldImeIPrezime() {
-		if (textFieldImeIPrezime == null) {
-			textFieldImeIPrezime = new JTextField();
-			textFieldImeIPrezime.setBounds(164, 10, 116, 22);
-			textFieldImeIPrezime.setColumns(10);
-		}
-		return textFieldImeIPrezime;
-	}
+
 	private JLabel getLblId() {
 		if (lblId == null) {
 			lblId = new JLabel("ID:");
-			lblId.setBounds(38, 81, 45, 16);
+			lblId.setBounds(38, 81, 298, 16);
 		}
 		return lblId;
 	}
-	private JTextField getTextFieldID() {
-		if (textFieldID == null) {
-			textFieldID = new JTextField();
-			textFieldID.setBounds(164, 80, 116, 22);
-			textFieldID.setColumns(10);
-		}
-		return textFieldID;
-	}
+
 	private JLabel getLblSpecijalizacija() {
 		if (lblSpecijalizacija == null) {
 			lblSpecijalizacija = new JLabel("Specijalizacija:");
-			lblSpecijalizacija.setBounds(38, 52, 114, 16);
+			lblSpecijalizacija.setBounds(38, 52, 298, 16);
 		}
 		return lblSpecijalizacija;
 	}
-	private JTextField getTextFieldSpecijalizacija() {
-		if (textFieldSpecijalizacija == null) {
-			textFieldSpecijalizacija = new JTextField();
-			textFieldSpecijalizacija.setBounds(164, 45, 116, 22);
-			textFieldSpecijalizacija.setColumns(10);
-		}
-		return textFieldSpecijalizacija;
-	}
+
 	private JButton getBtnKrajRada() {
 		if (btnKrajRada == null) {
 			btnKrajRada = new JButton("Kraj rada");
 			btnKrajRada.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					JOptionPane j = new JOptionPane();
-					int opcija = j.showConfirmDialog(j, "Da li ste sigurni?","Kraj rada",j.YES_NO_OPTION);
+					int opcija = j.showConfirmDialog(j, "Da li ste sigurni?", "Kraj rada", j.YES_NO_OPTION);
 					if (opcija == j.YES_OPTION) {
 						System.exit(0);
 					}
@@ -137,4 +117,5 @@ public class LekarGUI extends JFrame {
 		}
 		return btnKrajRada;
 	}
+
 }

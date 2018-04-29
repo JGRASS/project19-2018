@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pacijent;
+import domZdravlja.klase.Pregled;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,10 +22,11 @@ public class GlavniProzorGUI extends JFrame {
 	private JPanel contentPane;
 	private JButton btnLekar;
 	private JButton btnPacijent;
-	public LinkedList<Lekar> lekari = new LinkedList<Lekar>();
-	public LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
-	
+	public static LinkedList<Lekar> lekari = new LinkedList<Lekar>();
+	public static LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
+
 	private GlavniProzorGUI gp;
+
 	/**
 	 * Launch the application.
 	 */
@@ -55,7 +57,8 @@ public class GlavniProzorGUI extends JFrame {
 		contentPane.add(getBtnLekar());
 		contentPane.add(getBtnPacijent());
 		this.gp = this;
-		//Narednih par linija koda su proba, ubacujem lekara u listu da ne bi bila prazna, da bih mogao da testiram
+		// Narednih par linija koda su proba, ubacujem lekara u listu da ne bi bila
+		// prazna, da bih mogao da testiram
 		Lekar l = new Lekar();
 		l.setIDLekara("1234567");
 		l.setImeIPrezime("Bojan Car");
@@ -78,6 +81,7 @@ public class GlavniProzorGUI extends JFrame {
 		}
 		return btnLekar;
 	}
+
 	private JButton getBtnPacijent() {
 		if (btnPacijent == null) {
 			btnPacijent = new JButton("Pacijent");
@@ -90,5 +94,47 @@ public class GlavniProzorGUI extends JFrame {
 			btnPacijent.setBounds(282, 113, 97, 25);
 		}
 		return btnPacijent;
+	}
+
+	public static LinkedList<Lekar> vratiSpecijaliste(String specijalizacija) {
+		if (lekari.isEmpty())
+			return null;
+		LinkedList<Lekar> lekariSpecijaliste = new LinkedList<Lekar>();
+		for (int i = 0; i < lekari.size(); i++) {
+			Lekar l = lekari.get(i);
+			if (l.getSpecijalizacija().equals(specijalizacija))
+				lekariSpecijaliste.add(l);
+		}
+		return lekariSpecijaliste;
+	}
+
+	public static Pacijent vratiPacijenta(String imePrezime) {
+		if (pacijenti == null)
+			return null;
+		for (int i = 0; i < pacijenti.size(); i++) {
+			Pacijent p = pacijenti.get(i);
+			if (p.getImePrezime().equals(imePrezime))
+				return p;
+		}
+		return null;
+	}
+
+	public static Lekar vratiLekara(String imePrezime) {
+		if (lekari == null)
+			return null;
+		for (int i = 0; i < lekari.size(); i++) {
+			Lekar l = lekari.get(i);
+			if (l.getImeIPrezime().equals(imePrezime))
+				return l;
+		}
+		return null;
+	}
+
+	public static void dodajPregled(Pregled p) {
+		int indeks = lekari.indexOf(p.getLekar());
+		Lekar l = lekari.get(indeks);
+		LinkedList<Pregled> preglediLekara = l.getPregledi();
+		preglediLekara.add(p);
+		l.setPregledi(preglediLekara);
 	}
 }

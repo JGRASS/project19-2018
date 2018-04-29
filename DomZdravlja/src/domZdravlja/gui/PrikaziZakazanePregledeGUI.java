@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domZdravlja.klase.Lekar;
+import domZdravlja.klase.Pregled;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -13,6 +16,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class PrikaziZakazanePregledeGUI extends JFrame {
@@ -46,8 +50,9 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		contentPane.add(getScrollPanePregledi());
 		contentPane.add(getLblZakazniPregledi());
 		contentPane.add(getBtnPrikaziPreglede());
-		
+
 	}
+
 	private JLabel getLblIzaberiteInterval() {
 		if (lblIzaberiteInterval == null) {
 			lblIzaberiteInterval = new JLabel("Izaberite interval:");
@@ -55,6 +60,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return lblIzaberiteInterval;
 	}
+
 	private JLabel getLblOd() {
 		if (lblOd == null) {
 			lblOd = new JLabel("Od:");
@@ -62,6 +68,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return lblOd;
 	}
+
 	private JTextField getTextFieldOd() {
 		if (textFieldOd == null) {
 			textFieldOd = new JTextField();
@@ -70,6 +77,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return textFieldOd;
 	}
+
 	private JLabel getLblDo() {
 		if (lblDo == null) {
 			lblDo = new JLabel("Do:");
@@ -77,6 +85,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return lblDo;
 	}
+
 	private JTextField getTextFieldDo() {
 		if (textFieldDo == null) {
 			textFieldDo = new JTextField();
@@ -85,6 +94,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return textFieldDo;
 	}
+
 	private JScrollPane getScrollPanePregledi() {
 		if (scrollPanePregledi == null) {
 			scrollPanePregledi = new JScrollPane();
@@ -92,6 +102,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return scrollPanePregledi;
 	}
+
 	private JLabel getLblZakazniPregledi() {
 		if (lblZakazniPregledi == null) {
 			lblZakazniPregledi = new JLabel("Zakazni pregledi:");
@@ -99,6 +110,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		}
 		return lblZakazniPregledi;
 	}
+
 	private JButton getBtnPrikaziPreglede() {
 		if (btnPrikaziPreglede == null) {
 			btnPrikaziPreglede = new JButton("Prikazi preglede");
