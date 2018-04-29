@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Dimension;
 
@@ -123,6 +124,15 @@ public class LekarGUI extends JFrame {
 	private JButton getBtnKrajRada() {
 		if (btnKrajRada == null) {
 			btnKrajRada = new JButton("Kraj rada");
+			btnKrajRada.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane j = new JOptionPane();
+					int opcija = j.showConfirmDialog(j, "Da li ste sigurni?","Kraj rada",j.YES_NO_OPTION);
+					if (opcija == j.YES_OPTION) {
+						System.exit(0);
+					}
+				}
+			});
 			btnKrajRada.setBounds(323, 215, 97, 25);
 		}
 		return btnKrajRada;

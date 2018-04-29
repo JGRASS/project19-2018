@@ -51,7 +51,7 @@ public class PacijentGUI extends JFrame {
 		contentPane.add(textArea);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(155, 165, 28, 20);
+		comboBox.setBounds(188, 165, 28, 20);
 		contentPane.add(comboBox);
 		/*for (int i = 0; i < array.length; i++) {
 			
@@ -93,7 +93,7 @@ public class PacijentGUI extends JFrame {
 					pacijent.izaberiLekara("");
 				}
 			});
-			btnPromeniLekara.setBounds(21, 163, 84, 25);
+			btnPromeniLekara.setBounds(21, 163, 131, 25);
 		}
 		return btnPromeniLekara;
 	}

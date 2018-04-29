@@ -10,9 +10,9 @@ public class Pacijent {
 	private String datumRodjenja;
 	private Lekar izabraniLekar;
 	
-	private LinkedList<Lekar> lekari;
-	public LinkedList<Pregled> zakazaniPregledi;
-	public LinkedList<Pregled> istorijaPregleda;
+	private LinkedList<Lekar> lekari = new LinkedList<Lekar>();
+	public LinkedList<Pregled> zakazaniPregledi = new LinkedList<Pregled>();
+	public LinkedList<Pregled> istorijaPregleda = new LinkedList<Pregled>();
 	
 	public String getImePrezime() {
 		return imePrezime;
