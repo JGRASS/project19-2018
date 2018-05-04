@@ -6,7 +6,7 @@ public class Pregled {
 	private Lekar lekar;
 	private Pacijent pacijent;
 	private String vrstaPregleda;
-	private GregorianCalendar datumIVreme;
+	private DatumIVreme datumIVreme;
 
 	public Lekar getLekar() {
 		return lekar;
@@ -24,11 +24,11 @@ public class Pregled {
 		this.vrstaPregleda = vrstaPregleda;
 	}
 
-	public GregorianCalendar getDatumIVreme() {
+	public DatumIVreme getDatumIVreme() {
 		return datumIVreme;
 	}
 
-	public void setDatumIVreme(GregorianCalendar datumIVreme) {
+	public void setDatumIVreme(DatumIVreme datumIVreme) {
 		this.datumIVreme = datumIVreme;
 	}
 
@@ -41,7 +41,7 @@ public class Pregled {
 	}
 
 	public String IzvestajZaLekara() {
-		return "Pacijent: " + pacijent + ", datum i vreme: " + datumIVreme.getTime() + ", vsta pregleda: "
+		return "Pacijent: " + pacijent + ", datum i vreme: " + datumIVreme.toString() + ", vsta pregleda: "
 				+ vrstaPregleda + ".";
 	}
 

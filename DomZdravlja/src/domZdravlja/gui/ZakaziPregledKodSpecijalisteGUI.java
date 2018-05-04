@@ -183,7 +183,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 
 					datum.set(comboBoxGodina.getSelectedIndex(), comboBoxMesec.getSelectedIndex() - 1,
 							comboBoxDan.getSelectedIndex());
-					p.setDatumIVreme(datum);
+					//p.setDatumIVreme(datum);
 					
 					p.setLekar(GlavniProzorGUI.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
 					

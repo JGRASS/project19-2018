@@ -83,6 +83,10 @@ public class OtvoriPacijentaGUI extends JFrame {
 								dp.setVisible(true);
 							}					
 						}
+						else {
+							PacijentGUI pg = new PacijentGUI(p);
+							pg.setVisible(true);
+						}
 					}
 					else {
 						JOptionPane j = new JOptionPane();

@@ -2,14 +2,16 @@ package domZdravlja.klase;
 
 import java.util.LinkedList;
 
+import domZdravlja.klase.Pregled;
+
 public class Lekar {
 
 	private String IDLekara;
 	private String imeIPrezime;
 	private String specijalizacija;
 	private String sifra;
-	private LinkedList<Pregled> pregledi;
-	private LinkedList<Pacijent> pacijenti;
+	private LinkedList<Pregled> pregledi = new LinkedList<Pregled>();
+	private LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
 
 	public String getIDLekara() {
 		return IDLekara;
