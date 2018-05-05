@@ -2,12 +2,14 @@ package domZdravlja.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domZdravlja.klase.DatumIVreme;
 import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pacijent;
 import domZdravlja.klase.Pregled;
@@ -61,10 +63,11 @@ public class GlavniProzorGUI extends JFrame {
 		// prazna, da bih mogao da testiram
 		Lekar l = new Lekar();
 		l.setIDLekara("1234567");
-		l.setImeIPrezime("Bojan Car");
+		l.setImeIPrezime("Bojan Djekic");
 		l.setPregledi(null);
 		l.setSifra("1234567");
 		l.setSpecijalizacija("Ginekolog");
+		
 		lekari.add(l);
 	}
 

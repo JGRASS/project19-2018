@@ -1,27 +1,24 @@
 package domZdravlja.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.ComboBoxUI;
-import javax.swing.plaf.basic.BasicComboBoxUI.ComboBoxLayoutManager;
-
-import domZdravlja.klase.Lekar;
-import domZdravlja.klase.Pregled;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JCalendar;
+
+import domZdravlja.klase.DatumIVreme;
+import domZdravlja.klase.Lekar;
+import domZdravlja.klase.Pregled;
 
 public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 
@@ -34,10 +31,13 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	private JLabel lblDatum;
 	private JButton btnZakazi;
 	private JTextField textFieldSpecijalizacija;
-	private JComboBox comboBoxDan;
-	private JComboBox comboBoxMesec;
-	private JComboBox comboBoxGodina;
+
 	private JComboBox<String> comboBoxLekariSpecijaliste;
+	private JCalendar calendar;
+	private JCalendar calendar_1;
+	private Label lblVreme;
+	private JComboBox comboBoxSat;
+	private JComboBox comboBoxMinut;
 
 	/**
 	 * Create the frame.
@@ -82,6 +82,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 					lblPacijent.setVisible(true);
 					lblVrstaPregleda.setVisible(true);
 					lblDatum.setVisible(true);
+					lblVreme.setVisible(true);
 
 					textFieldPacijent.setVisible(true);
 					textFieldVrstaPregleda.setVisible(true);
@@ -89,10 +90,11 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 					btnZakazi.setVisible(true);
 					btnPotvrdi.setVisible(false);
 
-					comboBoxDan.setVisible(true);
-					comboBoxMesec.setVisible(true);
-					comboBoxGodina.setVisible(true);
 					comboBoxLekariSpecijaliste.setVisible(true);
+					comboBoxSat.setVisible(true);
+					comboBoxMinut.setVisible(true);
+
+					calendar_1.setVisible(true);
 
 					for (int i = 0; i < specijalisti.size(); i++) {
 						comboBoxLekariSpecijaliste.addItem(specijalisti.get(i).getImeIPrezime());
@@ -113,10 +115,11 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		textFieldSpecijalizacija.setBounds(209, 8, 116, 20);
 		contentPane.add(textFieldSpecijalizacija);
 		textFieldSpecijalizacija.setColumns(10);
-		contentPane.add(getComboBoxDan());
-		contentPane.add(getComboBoxMesec());
-		contentPane.add(getComboBoxGodina());
 		contentPane.add(getComboBoxLekariSpecijaliste());
+		contentPane.add(getCalendar_1());
+		contentPane.add(getLblVreme());
+		contentPane.add(getComboBoxSat());
+		contentPane.add(getComboBoxMinut());
 
 	}
 
@@ -165,7 +168,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	private JLabel getLblDatum() {
 		if (lblDatum == null) {
 			lblDatum = new JLabel("Datum:");
-			lblDatum.setBounds(10, 170, 56, 16);
+			lblDatum.setBounds(269, 63, 56, 16);
 		}
 		return lblDatum;
 	}
@@ -176,17 +179,19 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			btnZakazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					Pregled p = new Pregled();
-					GregorianCalendar datum = new GregorianCalendar();
+					DatumIVreme datum = new DatumIVreme();
 
 					p.setPacijent(GlavniProzorGUI.vratiPacijenta(textFieldPacijent.getText()));
 					p.setVrstaPregleda(textFieldVrstaPregleda.getText());
 
-					datum.set(comboBoxGodina.getSelectedIndex(), comboBoxMesec.getSelectedIndex() - 1,
-							comboBoxDan.getSelectedIndex());
-					//p.setDatumIVreme(datum);
-					
+					datum.setDatum(calendar_1.getDate());
+					datum.setSati((int) comboBoxSat.getSelectedItem());
+					datum.setMinuti((int) comboBoxMinut.getSelectedItem());
+
+					p.setDatumIVreme(datum);
+
 					p.setLekar(GlavniProzorGUI.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
-					
+
 					GlavniProzorGUI.dodajPregled(p);
 
 				}
@@ -196,42 +201,6 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		return btnZakazi;
 	}
 
-	private JComboBox getComboBoxDan() {
-		if (comboBoxDan == null) {
-			comboBoxDan = new JComboBox();
-			comboBoxDan.setBounds(114, 168, 38, 20);
-			for (int i = 1; i < 32; i++) {
-				comboBoxDan.addItem(i);
-			}
-			comboBoxDan.setVisible(false);
-		}
-		return comboBoxDan;
-	}
-
-	private JComboBox getComboBoxMesec() {
-		if (comboBoxMesec == null) {
-			comboBoxMesec = new JComboBox();
-			comboBoxMesec.setBounds(192, 168, 38, 20);
-			for (int i = 1; i < 13; i++) {
-				comboBoxMesec.addItem(i);
-			}
-			comboBoxMesec.setVisible(false);
-		}
-		return comboBoxMesec;
-	}
-
-	private JComboBox getComboBoxGodina() {
-		if (comboBoxGodina == null) {
-			comboBoxGodina = new JComboBox();
-			comboBoxGodina.setBounds(254, 168, 38, 20);
-			for (int i = 2018; i < 2020; i++) {
-				comboBoxGodina.addItem(i);
-			}
-			comboBoxGodina.setVisible(false);
-		}
-		return comboBoxGodina;
-	}
-
 	private JComboBox getComboBoxLekariSpecijaliste() {
 		if (comboBoxLekariSpecijaliste == null) {
 			comboBoxLekariSpecijaliste = new JComboBox<>();
@@ -239,5 +208,51 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			comboBoxLekariSpecijaliste.setVisible(false);
 		}
 		return comboBoxLekariSpecijaliste;
+	}
+
+	private JCalendar getCalendar_1() {
+		if (calendar_1 == null) {
+			calendar_1 = new JCalendar();
+			calendar_1.setBounds(234, 85, 164, 106);
+			calendar_1.setVisible(false);
+		}
+		return calendar_1;
+	}
+
+	private Label getLblVreme() {
+		if (lblVreme == null) {
+			lblVreme = new Label("Vreme:");
+			lblVreme.setBounds(269, 198, 70, 24);
+			lblVreme.setVisible(false);
+		}
+		return lblVreme;
+	}
+
+	private JComboBox getComboBoxSat() {
+		if (comboBoxSat == null) {
+			comboBoxSat = new JComboBox();
+			comboBoxSat.setBounds(269, 227, 56, 22);
+
+			for (int i = 8; i < 20; i++) {
+				comboBoxSat.addItem(i);
+			}
+
+			comboBoxSat.setVisible(false);
+		}
+		return comboBoxSat;
+	}
+
+	private JComboBox getComboBoxMinut() {
+		if (comboBoxMinut == null) {
+			comboBoxMinut = new JComboBox();
+			comboBoxMinut.setBounds(335, 227, 63, 22);
+
+			for (int i = 0; i < 60; i += 15) {
+				comboBoxMinut.addItem(i);
+			}
+
+			comboBoxMinut.setVisible(false);
+		}
+		return comboBoxMinut;
 	}
 }

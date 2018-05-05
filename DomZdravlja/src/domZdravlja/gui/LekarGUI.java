@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domZdravlja.klase.DatumIVreme;
 import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pregled;
 
@@ -23,11 +24,13 @@ public class LekarGUI extends JFrame {
 	private JLabel lblId;
 	private JLabel lblSpecijalizacija;
 	private JButton btnKrajRada;
+	private Lekar lekar;
 
 	/**
 	 * Create the frame.
 	 */
 	public LekarGUI(Lekar l) {
+		lekar = l;
 
 		setTitle("Lekar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +71,7 @@ public class LekarGUI extends JFrame {
 			btnPrikaziZakazanePreglede = new JButton("Prikazi zakazane preglede");
 			btnPrikaziZakazanePreglede.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PrikaziZakazanePregledeGUI p = new PrikaziZakazanePregledeGUI();
+					PrikaziZakazanePregledeGUI p = new PrikaziZakazanePregledeGUI(lekar);
 					p.setVisible(true);
 				}
 			});

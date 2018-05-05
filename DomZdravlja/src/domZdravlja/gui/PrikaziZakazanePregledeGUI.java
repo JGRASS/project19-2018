@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import domZdravlja.klase.DatumIVreme;
 import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pregled;
 
@@ -16,25 +17,32 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JTextPane;
+import java.awt.TextArea;
 
 public class PrikaziZakazanePregledeGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblIzaberiteInterval;
 	private JLabel lblOd;
-	private JTextField textFieldOd;
 	private JLabel lblDo;
-	private JTextField textFieldDo;
-	private JScrollPane scrollPanePregledi;
 	private JLabel lblZakazniPregledi;
 	private JButton btnPrikaziPreglede;
+	private JDateChooser dateChooserOD;
+	private JDateChooser dateChooserDO;
+	private Lekar lekar;
+	private TextArea textAreaPregledi;
 
 	/**
 	 * Create the frame.
 	 */
-	public PrikaziZakazanePregledeGUI() {
+	public PrikaziZakazanePregledeGUI(Lekar l) {
+		lekar = l;
+
 		setTitle("Zakazani pregledi");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -44,12 +52,12 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getLblIzaberiteInterval());
 		contentPane.add(getLblOd());
-		contentPane.add(getTextFieldOd());
 		contentPane.add(getLblDo());
-		contentPane.add(getTextFieldDo());
-		contentPane.add(getScrollPanePregledi());
 		contentPane.add(getLblZakazniPregledi());
 		contentPane.add(getBtnPrikaziPreglede());
+		contentPane.add(getDateChooserOD());
+		contentPane.add(getDateChooserDO());
+		contentPane.add(getTextAreaPregledi());
 
 	}
 
@@ -69,15 +77,6 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		return lblOd;
 	}
 
-	private JTextField getTextFieldOd() {
-		if (textFieldOd == null) {
-			textFieldOd = new JTextField();
-			textFieldOd.setBounds(45, 56, 116, 22);
-			textFieldOd.setColumns(10);
-		}
-		return textFieldOd;
-	}
-
 	private JLabel getLblDo() {
 		if (lblDo == null) {
 			lblDo = new JLabel("Do:");
@@ -86,27 +85,11 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		return lblDo;
 	}
 
-	private JTextField getTextFieldDo() {
-		if (textFieldDo == null) {
-			textFieldDo = new JTextField();
-			textFieldDo.setBounds(214, 56, 116, 22);
-			textFieldDo.setColumns(10);
-		}
-		return textFieldDo;
-	}
-
-	private JScrollPane getScrollPanePregledi() {
-		if (scrollPanePregledi == null) {
-			scrollPanePregledi = new JScrollPane();
-			scrollPanePregledi.setBounds(12, 157, 374, 83);
-		}
-		return scrollPanePregledi;
-	}
-
 	private JLabel getLblZakazniPregledi() {
 		if (lblZakazniPregledi == null) {
 			lblZakazniPregledi = new JLabel("Zakazni pregledi:");
 			lblZakazniPregledi.setBounds(12, 128, 130, 16);
+			lblZakazniPregledi.setVisible(false);
 		}
 		return lblZakazniPregledi;
 	}
@@ -116,10 +99,64 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 			btnPrikaziPreglede = new JButton("Prikazi preglede");
 			btnPrikaziPreglede.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					java.util.Date datumOd = dateChooserOD.getDate();
+					java.util.Date datumDo = dateChooserOD.getDate();
+
+					lblZakazniPregledi.setVisible(true);
+					textAreaPregledi.setVisible(true);
+
+					String s = prikaziZakazanePreglede(datumOd, datumDo);
+					if (s.equals(""))
+						textAreaPregledi.setText("Ne postoji ni jedan zakazani pregled u trazenom preodu.");
+					else
+						textAreaPregledi.setText(s);
+
 				}
 			});
 			btnPrikaziPreglede.setBounds(12, 90, 149, 25);
 		}
 		return btnPrikaziPreglede;
+	}
+
+	private JDateChooser getDateChooserOD() {
+		if (dateChooserOD == null) {
+			dateChooserOD = new JDateChooser();
+			dateChooserOD.setBounds(42, 56, 100, 22);
+		}
+		return dateChooserOD;
+	}
+
+	private JDateChooser getDateChooserDO() {
+		if (dateChooserDO == null) {
+			dateChooserDO = new JDateChooser();
+			dateChooserDO.setBounds(216, 53, 100, 22);
+		}
+		return dateChooserDO;
+	}
+
+	private String prikaziZakazanePreglede(java.util.Date datumOd, java.util.Date datumDo) {
+		LinkedList<Pregled> sviPregledi = new LinkedList<>();
+		sviPregledi = lekar.getPregledi();
+
+		if (sviPregledi == null)
+			return "Ne postoji ni jedan zakazan pregled.";
+		String s = "";
+
+		for (int i = 0; i < sviPregledi.size(); i++) {
+			Pregled p = sviPregledi.get(i);
+			java.util.Date datum = p.getDatumIVreme().getDatum();
+			if ((datum.equals(datumOd) || datum.after(datumOd)) && (datum.equals(datumDo) || datum.before(datumDo)))
+				s = s + "\n " + p.toString();
+		}
+		return s;
+	}
+
+	private TextArea getTextAreaPregledi() {
+		if (textAreaPregledi == null) {
+			textAreaPregledi = new TextArea();
+			textAreaPregledi.setBounds(10, 152, 412, 91);
+			textAreaPregledi.setVisible(false);
+		}
+		return textAreaPregledi;
 	}
 }
