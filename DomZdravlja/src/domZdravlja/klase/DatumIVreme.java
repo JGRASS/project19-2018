@@ -29,7 +29,7 @@ public class DatumIVreme {
 	}
 	@Override
 	public String toString() {
-		return "Datum i vreme [datum=" + datum + ", sati=" + sati + ", minuti=" + minuti + "]";
+		return "Datum: " + datum + "  Sati: " + sati + "  Minuti: " + minuti;
 	}
 	
 	

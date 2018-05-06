@@ -10,7 +10,6 @@ public class Pacijent {
 	private String datumRodjenja;
 	private Lekar izabraniLekar;
 	
-	private LinkedList<Lekar> lekari = new LinkedList<Lekar>();
 	public LinkedList<Pregled> zakazaniPregledi = new LinkedList<Pregled>();
 	public LinkedList<Pregled> istorijaPregleda = new LinkedList<Pregled>();
 	
@@ -53,13 +52,6 @@ public class Pacijent {
 			s = s + System.lineSeparator() + zakazaniPregledi.get(i).IzvestajZaPacijenta();
 		}
 		return s;
-	}
-	
-	public void izaberiLekara(String imePrezime) {
-		for (int i = 0; i < lekari.size(); i++) {
-			if(lekari.get(i).getImeIPrezime().equals(imePrezime))
-				setIzabraniLekar(lekari.get(i));
-		}
 	}
 	
 	

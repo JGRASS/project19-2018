@@ -40,7 +40,7 @@ public class DodajPacijentaGUI extends JFrame {
 	 */
 	public DodajPacijentaGUI(GlavniProzorGUI gp) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 394, 310);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -121,7 +121,10 @@ public class DodajPacijentaGUI extends JFrame {
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
-			comboBox.setBounds(200, 181, 31, 22);
+			comboBox.setBounds(200, 181, 95, 22);
+		}
+		for (int i = 0; i < gp.lekari.size(); i++) {
+			comboBox.addItem(gp.lekari.get(i).getImeIPrezime());
 		}
 		return comboBox;
 	}
@@ -133,25 +136,28 @@ public class DodajPacijentaGUI extends JFrame {
 				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
 					if (textField.getText() == null || textField.getText().isEmpty() || textField_1.getText() == null
-							|| textField_1.getText().isEmpty() || textField_2.getText() == null
+							|| textField_1.getText().isEmpty() || textField_1.getText().length() != 11 || textField_2.getText() == null
 							|| textField_2.getText().isEmpty()) {
 						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Sva polja moraju biti popunjena.","Greska!",j.ERROR_MESSAGE);
+						j.showMessageDialog(j, "Sva polja moraju biti popunjena i LBO mora imati 11 cifara.","Greska!",j.ERROR_MESSAGE);
 					} else {
 						Pacijent p = new Pacijent();
 						p.setDatumRodjenja(textField_2.getText());
 						p.setImePrezime(textField.getText());
 						p.setLbo(textField_1.getText());
-						p.setIzabraniLekar((Lekar) comboBox.getSelectedItem());
+						for (int i = 0; i < gp.lekari.size(); i++) {
+							if(gp.lekari.get(i).getImeIPrezime().equals(comboBox.getSelectedItem()))
+								p.setIzabraniLekar(gp.lekari.get(i));
+						}
 						gp.pacijenti.add(p);
-						PacijentGUI pg = new PacijentGUI(p);
+						PacijentGUI pg = new PacijentGUI(p,gp);
 						pg.setTitle(p.getImePrezime() + " LBO: " + p.getLbo());
 						pg.setVisible(true);
 						dispose();
 					}
 				}
 			});
-			btnNapraviNalog.setBounds(12, 215, 116, 25);
+			btnNapraviNalog.setBounds(12, 232, 116, 25);
 		}
 		return btnNapraviNalog;
 	}
@@ -164,7 +170,7 @@ public class DodajPacijentaGUI extends JFrame {
 					dispose();
 				}
 			});
-			btnOdustani.setBounds(252, 215, 97, 25);
+			btnOdustani.setBounds(222, 232, 97, 25);
 		}
 		return btnOdustani;
 	}

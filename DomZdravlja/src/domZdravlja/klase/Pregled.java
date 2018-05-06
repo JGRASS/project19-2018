@@ -5,7 +5,6 @@ import java.util.GregorianCalendar;
 public class Pregled {
 	private Lekar lekar;
 	private Pacijent pacijent;
-	private String vrstaPregleda;
 	private DatumIVreme datumIVreme;
 
 	public Lekar getLekar() {
@@ -16,13 +15,6 @@ public class Pregled {
 		this.lekar = lekar;
 	}
 
-	public String getVrstaPregleda() {
-		return vrstaPregleda;
-	}
-
-	public void setVrstaPregleda(String vrstaPregleda) {
-		this.vrstaPregleda = vrstaPregleda;
-	}
 
 	public DatumIVreme getDatumIVreme() {
 		return datumIVreme;
@@ -41,13 +33,11 @@ public class Pregled {
 	}
 
 	public String IzvestajZaLekara() {
-		return "Pacijent: " + pacijent + ", datum i vreme: " + datumIVreme.toString() + ", vsta pregleda: "
-				+ vrstaPregleda + ".";
+		return "Pacijent: " + pacijent + ", datum i vreme: " + datumIVreme.toString();
 	}
 
 	public String IzvestajZaPacijenta() {
-		return "Vrsta pregleda: " + vrstaPregleda + "	Datum i vreme: " + datumIVreme + "	Lekar: "
-				+ lekar.getImeIPrezime();
+		return datumIVreme.toString() + "  Lekar: " + lekar.getImeIPrezime();
 	}
 
 }

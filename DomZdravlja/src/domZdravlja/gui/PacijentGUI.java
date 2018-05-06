@@ -11,13 +11,20 @@ import domZdravlja.klase.Pregled;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JCalendar;
 import com.toedter.components.JSpinField;
+import java.awt.Point;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JScrollPane;
 
 public class PacijentGUI extends JFrame {
 
@@ -33,14 +40,16 @@ public class PacijentGUI extends JFrame {
 	private JSpinField spinField;
 	private JTextArea textArea;
 	private JComboBox comboBox_1;
+	private GlavniProzorGUI gp;
 
 	/**
 	 * Create the frame.
 	 */
-	public PacijentGUI(Pacijent pacijent) {
+	public PacijentGUI(Pacijent pacijent, GlavniProzorGUI gp) {
 		this.pacijent = pacijent;
+		this.gp = gp;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 597, 343);
+		setBounds(100, 100, 759, 477);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -51,32 +60,88 @@ public class PacijentGUI extends JFrame {
 		contentPane.add(getBtnZakaziPregled());
 		contentPane.add(getBtnOtkaziPregled());
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(331, 201, 375, 190);
+		contentPane.add(scrollPane);
+		
 		textArea = new JTextArea();
-		textArea.setBounds(248, 193, 305, 100);
-		contentPane.add(textArea);
+		textArea.setEditable(false);
+		scrollPane.setViewportView(textArea);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(155, 165, 28, 20);
+		comboBox.setBounds(172, 268, 135, 20);
+		for (int i = 0; i < gp.lekari.size(); i++) {
+			comboBox.addItem(gp.lekari.get(i).getImeIPrezime());
+		}
 		contentPane.add(comboBox);
 		
 		calendar = new JCalendar();
-		calendar.setBounds(260, 31, 156, 134);
+		calendar.setBounds(331, 35, 228, 154);
 		contentPane.add(calendar);
 		
 		spinField = new JSpinField();
 		spinField.setValue(7);
 		spinField.setMinimum(7);
 		spinField.setMaximum(19);
-		spinField.setBounds(464, 44, 48, 20);
+		spinField.setBounds(581, 35, 59, 20);
 		contentPane.add(spinField);
 		
 		comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(543, 44, 28, 20);
+		comboBox_1.setBounds(658, 35, 48, 20);
 		contentPane.add(comboBox_1);
 		comboBox_1.addItem(0);
 		comboBox_1.addItem(15);
 		comboBox_1.addItem(30);
 		comboBox_1.addItem(45);
+		
+		JLabel lblPodaciOPacijentu = new JLabel("PODACI O PACIJENTU:");
+		lblPodaciOPacijentu.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPodaciOPacijentu.setBounds(21, 35, 196, 20);
+		contentPane.add(lblPodaciOPacijentu);
+		
+		JLabel lblImeIPrezime = new JLabel("Ime i prezime:");
+		lblImeIPrezime.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblImeIPrezime.setBounds(159, 78, 114, 20);
+		contentPane.add(lblImeIPrezime);
+		
+		JLabel lblLbo = new JLabel("LBO:");
+		lblLbo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblLbo.setBounds(21, 120, 46, 14);
+		contentPane.add(lblLbo);
+		
+		JLabel lblDatumRodjenja = new JLabel("Datum rodjenja:");
+		lblDatumRodjenja.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDatumRodjenja.setBounds(159, 159, 135, 18);
+		contentPane.add(lblDatumRodjenja);
+		
+		JLabel lblIzabraniLekar = new JLabel("Izabrani lekar:");
+		lblIzabraniLekar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblIzabraniLekar.setBounds(21, 201, 135, 25);
+		contentPane.add(lblIzabraniLekar);
+		
+		JLabel lblimePrezime = new JLabel("Ime i prezime:");
+		lblimePrezime.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblimePrezime.setBounds(21, 78, 141, 20);
+		lblImeIPrezime.setText(pacijent.getImePrezime());
+		contentPane.add(lblimePrezime);
+		
+		JLabel lblLBO = new JLabel("New label");
+		lblLBO.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblLBO.setBounds(159, 120, 141, 20);
+		lblLBO.setText(pacijent.getLbo());
+		contentPane.add(lblLBO);
+		
+		JLabel lblDatRodj = new JLabel("Datum rodjenja:");
+		lblDatRodj.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDatRodj.setBounds(21, 158, 141, 20);
+		lblDatumRodjenja.setText(pacijent.getDatumRodjenja());
+		contentPane.add(lblDatRodj);
+		
+		JLabel lblLekar = new JLabel("New label");
+		lblLekar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblLekar.setBounds(159, 202, 141, 20);
+		lblLekar.setText(pacijent.getIzabraniLekar().getImeIPrezime());
+		contentPane.add(lblLekar);
 	}
 
 	private JButton getBtnPrikaziIstorijuPregleda() {
@@ -84,11 +149,12 @@ public class PacijentGUI extends JFrame {
 			btnPrikaziIstorijuPregleda = new JButton("Prikazi istoriju pregleda");
 			btnPrikaziIstorijuPregleda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					prebaciUIstoriju();
 					textArea.setText(pacijent.Istorija());
 				}
 				}
 			);
-			btnPrikaziIstorijuPregleda.setBounds(10, 31, 181, 25);
+			btnPrikaziIstorijuPregleda.setBounds(528, 402, 178, 25);
 		}
 		return btnPrikaziIstorijuPregleda;
 	}
@@ -97,11 +163,12 @@ public class PacijentGUI extends JFrame {
 			btnPrikaziZakazanePreglede = new JButton("Prikazi zakazane preglede");
 			btnPrikaziZakazanePreglede.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					textArea.setText(null);
 					textArea.setText(pacijent.ZakazaniPregledi());
 				}
 				}
 			);
-			btnPrikaziZakazanePreglede.setBounds(10, 93, 181, 25);
+			btnPrikaziZakazanePreglede.setBounds(331, 402, 196, 25);
 		}
 		return btnPrikaziZakazanePreglede;
 	}
@@ -110,10 +177,15 @@ public class PacijentGUI extends JFrame {
 			btnPromeniLekara = new JButton("Promeni lekara");
 			btnPromeniLekara.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					pacijent.izaberiLekara("");
+					for (int i = 0; i < gp.lekari.size(); i++) {
+						if (gp.lekari.get(i).getImeIPrezime().equals(comboBox_1.getSelectedItem())) {
+							pacijent.setIzabraniLekar(gp.lekari.get(i));
+							break;
+						}
+					}
 				}
 			});
-			btnPromeniLekara.setBounds(21, 163, 103, 25);
+			btnPromeniLekara.setBounds(21, 262, 141, 32);
 		}
 		return btnPromeniLekara;
 	}
@@ -126,7 +198,7 @@ public class PacijentGUI extends JFrame {
 					pacijent.zakazaniPregledi.add(pregled);
 				}
 			});
-			btnZakaziPregled.setBounds(446, 93, 125, 25);
+			btnZakaziPregled.setBounds(581, 78, 125, 44);
 		}
 		return btnZakaziPregled;
 	}
@@ -137,27 +209,38 @@ public class PacijentGUI extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					pregled = noviPregled();
 					for (int i = 0; i < pacijent.zakazaniPregledi.size(); i++) {
-						if(pacijent.zakazaniPregledi.get(i).equals(pregled)) {
-							pacijent.zakazaniPregledi.remove(i);
+						Pregled p = pacijent.zakazaniPregledi.get(i);
+						if(p.getDatumIVreme().getDatum().equals(calendar.getDate()) && p.getLekar().equals(p.getLekar())
+								&& p.getDatumIVreme().getSati() == spinField.getValue()
+								&& p.getDatumIVreme().getMinuti() == (Integer)comboBox_1.getSelectedItem()){
+							pacijent.zakazaniPregledi.remove(p);
 						}
 					}
 				}
 			});
-			btnOtkaziPregled.setBounds(446, 130, 125, 25);
+			btnOtkaziPregled.setBounds(581, 133, 125, 44);
 		}
 		return btnOtkaziPregled;
 	}
 	public Pregled noviPregled() {
 		DatumIVreme datumIVreme = new DatumIVreme();
 		datumIVreme.setDatum(calendar.getDate());
-		datumIVreme.setSati(spinField.getValue());
+		datumIVreme.setSati((Integer)spinField.getValue());
 		datumIVreme.setMinuti((Integer)comboBox_1.getSelectedItem());
 		Pregled p = new Pregled();
 		p.setDatumIVreme(datumIVreme);
 		p.setLekar(pacijent.getIzabraniLekar());
 		p.setPacijent(pacijent);
-		//p.setVrstaPregleda(pacijent.getIzabraniLekar().getSpecijalizacija());
 		return p;
+	}
+	
+	public void prebaciUIstoriju() {
+		for (int i = 0; i < pacijent.zakazaniPregledi.size(); i++) {
+			if (pacijent.zakazaniPregledi.get(i).getDatumIVreme().getDatum().before(new Date())) {
+					pacijent.istorijaPregleda.add(pacijent.zakazaniPregledi.get(i));
+					pacijent.zakazaniPregledi.remove(i);
+			}
+		}
 	}
 }
 

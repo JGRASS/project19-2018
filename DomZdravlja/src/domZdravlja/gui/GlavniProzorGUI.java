@@ -69,6 +69,15 @@ public class GlavniProzorGUI extends JFrame {
 		l.setSpecijalizacija("Ginekolog");
 		
 		lekari.add(l);
+		
+		//proba - pacijent
+		Pacijent p = new Pacijent();
+		p.setImePrezime("Mila Dikic");
+		p.setLbo("12345678910");
+		p.setDatumRodjenja("28. 06. 1997.");
+		p.setIzabraniLekar(l);
+		
+		pacijenti.add(p);
 	}
 
 	private JButton getBtnLekar() {

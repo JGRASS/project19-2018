@@ -182,7 +182,6 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 					DatumIVreme datum = new DatumIVreme();
 
 					p.setPacijent(GlavniProzorGUI.vratiPacijenta(textFieldPacijent.getText()));
-					p.setVrstaPregleda(textFieldVrstaPregleda.getText());
 
 					datum.setDatum(calendar_1.getDate());
 					datum.setSati((int) comboBoxSat.getSelectedItem());
