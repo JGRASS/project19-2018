@@ -25,11 +25,11 @@ public class OtvoriPacijentaGUI extends JFrame {
 	private JTextField textFieldLBO;
 	private JButton btnPotvrdi;
 	private JButton btnOdustani;
-	private GlavniProzorGUI gp;
+	private OtvoriPacijentaGUI op;
 	/**
 	 * Create the frame.
 	 */
-	public OtvoriPacijentaGUI(GlavniProzorGUI gp) {
+	public OtvoriPacijentaGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -40,7 +40,7 @@ public class OtvoriPacijentaGUI extends JFrame {
 		contentPane.add(getTextFieldLBO());
 		contentPane.add(getBtnPotvrdi());
 		contentPane.add(getBtnOdustani());
-		this.gp = gp;
+		op = this;
 	}
 
 	private JLabel getLblUnesiteVašLbo() {
@@ -59,9 +59,9 @@ public class OtvoriPacijentaGUI extends JFrame {
 		return textFieldLBO;
 	}
 	private Pacijent vratiPacijenta(String LBO) {
-		for (int i = 0; i < gp.pacijenti.size(); i++) {
-			if (gp.pacijenti.get(i).getLbo().equals(LBO)) {
-				return gp.pacijenti.get(i);
+		for (int i = 0; i < GUIKontroler.gp.pacijenti.size(); i++) {
+			if (GUIKontroler.gp.pacijenti.get(i).getLbo().equals(LBO)) {
+				return GUIKontroler.gp.pacijenti.get(i);
 			}
 		}
 		return null;
@@ -72,26 +72,7 @@ public class OtvoriPacijentaGUI extends JFrame {
 			btnPotvrdi.addActionListener(new ActionListener() {
 				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
-					String LBO = textFieldLBO.getText();
-					if (LBO.length() == 11) {
-						Pacijent p = vratiPacijenta(LBO);
-						if (p == null) {
-							JOptionPane j = new JOptionPane();
-							int opcija = j.showConfirmDialog(j, "Ne postoji pacijent sa unetim LBO. Napravi nalog?", "Greska!",j.INFORMATION_MESSAGE, j.YES_NO_OPTION);
-							if (opcija == JOptionPane.YES_OPTION) {
-								DodajPacijentaGUI dp = new DodajPacijentaGUI(gp);
-								dp.setVisible(true);
-							}					
-						}
-						else {
-							PacijentGUI pg = new PacijentGUI(p,gp);
-							pg.setVisible(true);
-						}
-					}
-					else {
-						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Pogresno unet LBO. Mora imati 11 znakova.\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
-					}
+					GUIKontroler.metoda3(textFieldLBO.getText(),op);
 				}
 			});
 			btnPotvrdi.setBounds(74, 148, 97, 25);

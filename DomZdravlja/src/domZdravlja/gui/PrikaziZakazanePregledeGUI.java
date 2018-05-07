@@ -34,7 +34,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 	private JButton btnPrikaziPreglede;
 	private JDateChooser dateChooserOD;
 	private JDateChooser dateChooserDO;
-	private Lekar lekar;
+	public static Lekar lekar;
 	private TextArea textAreaPregledi;
 
 	/**
@@ -99,18 +99,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 			btnPrikaziPreglede = new JButton("Prikazi preglede");
 			btnPrikaziPreglede.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					java.util.Date datumOd = dateChooserOD.getDate();
-					java.util.Date datumDo = dateChooserOD.getDate();
-
-					lblZakazniPregledi.setVisible(true);
-					textAreaPregledi.setVisible(true);
-
-					String s = prikaziZakazanePreglede(datumOd, datumDo);
-					if (s.equals(""))
-						textAreaPregledi.setText("Ne postoji ni jedan zakazani pregled u trazenom preodu.");
-					else
-						textAreaPregledi.setText(s);
-
+					GUIKontroler.metoda5(dateChooserOD.getDate(), dateChooserOD.getDate(),textAreaPregledi,lblZakazniPregledi);
 				}
 			});
 			btnPrikaziPreglede.setBounds(12, 90, 149, 25);
@@ -132,23 +121,6 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 			dateChooserDO.setBounds(216, 53, 100, 22);
 		}
 		return dateChooserDO;
-	}
-
-	private String prikaziZakazanePreglede(java.util.Date datumOd, java.util.Date datumDo) {
-		LinkedList<Pregled> sviPregledi = new LinkedList<>();
-		sviPregledi = lekar.getPregledi();
-
-		if (sviPregledi == null)
-			return "Ne postoji ni jedan zakazan pregled.";
-		String s = "";
-
-		for (int i = 0; i < sviPregledi.size(); i++) {
-			Pregled p = sviPregledi.get(i);
-			java.util.Date datum = p.getDatumIVreme().getDatum();
-			if ((datum.equals(datumOd) || datum.after(datumOd)) && (datum.equals(datumDo) || datum.before(datumDo)))
-				s = s + "\n " + p.toString();
-		}
-		return s;
 	}
 
 	private TextArea getTextAreaPregledi() {

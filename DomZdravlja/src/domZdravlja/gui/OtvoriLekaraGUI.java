@@ -28,13 +28,12 @@ public class OtvoriLekaraGUI extends JFrame {
 	private JLabel lblUnesiteVauLozinku;
 	private JButton btnPotvrdi;
 	private JButton btnOdustani;
-	private GlavniProzorGUI gp;
 	private JTextField textField_1;
-
+	private OtvoriLekaraGUI ol;
 	/**
 	 * Create the frame.
 	 */
-	public OtvoriLekaraGUI(GlavniProzorGUI gp) {
+	public OtvoriLekaraGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -47,7 +46,7 @@ public class OtvoriLekaraGUI extends JFrame {
 		contentPane.add(getBtnPotvrdi());
 		contentPane.add(getBtnOdustani());
 		contentPane.add(getTextField_1());
-		this.gp = gp;
+		ol = this;
 	}
 
 	private JLabel getLblUnesiteVaId() {
@@ -75,43 +74,12 @@ public class OtvoriLekaraGUI extends JFrame {
 		return lblUnesiteVauLozinku;
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
-	private Lekar vratiLekara(String lozinka, String ID) {
-		for (int i = 0; i < gp.lekari.size(); i++) {
-			if (gp.lekari.get(i).getIDLekara().equals(ID) && gp.lekari.get(i).getSifra().equals(lozinka)) {
-				return gp.lekari.get(i);
-			}
-		}
-		return null;
-	}
-
 	private JButton getBtnPotvrdi() {
 		if (btnPotvrdi == null) {
 			btnPotvrdi = new JButton("Potvrdi");
 			btnPotvrdi.addActionListener(new ActionListener() {
-				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
-					String ID = textField.getText();
-					String lozinka = textField_1.getText();
-					if (lozinka.length() == 7 && ID.length() == 7) {
-						Lekar l = vratiLekara(lozinka, ID);
-						if (l == null) {
-							JOptionPane j = new JOptionPane();
-							j.showMessageDialog(j,
-									"Greška prilikom prijavljivanja. Ne postoji lekar sa unetim ID-om i lozinkom."
-											+ "\nPokusajte ponovo.",
-									"Greska!", j.ERROR_MESSAGE);
-						} else {
-							LekarGUI lg = new LekarGUI(l);
-							lg.setVisible(true);
-						}
-					} else {
-						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j,
-								"Greška prilikom prijavljivanja. ID i lozinka moraju imati po 7 karaktera."
-										+ "\nPokusajte ponovo.",
-								"Greska!", j.ERROR_MESSAGE);
-					}
+					GUIKontroler.metoda2(textField.getText(),textField_1.getText(),ol);
 				}
 			});
 			btnPotvrdi.setBounds(52, 183, 97, 25);

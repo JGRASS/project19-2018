@@ -40,14 +40,12 @@ public class PacijentGUI extends JFrame {
 	private JSpinField spinField;
 	private JTextArea textArea;
 	private JComboBox comboBox_1;
-	private GlavniProzorGUI gp;
 
 	/**
 	 * Create the frame.
 	 */
-	public PacijentGUI(Pacijent pacijent, GlavniProzorGUI gp) {
+	public PacijentGUI(Pacijent pacijent) {
 		this.pacijent = pacijent;
-		this.gp = gp;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 759, 477);
 		contentPane = new JPanel();
@@ -70,8 +68,8 @@ public class PacijentGUI extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(172, 268, 135, 20);
-		for (int i = 0; i < gp.lekari.size(); i++) {
-			comboBox.addItem(gp.lekari.get(i).getImeIPrezime());
+		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
+			comboBox.addItem(GUIKontroler.gp.lekari.get(i).getImeIPrezime());
 		}
 		contentPane.add(comboBox);
 		
@@ -149,8 +147,8 @@ public class PacijentGUI extends JFrame {
 			btnPrikaziIstorijuPregleda = new JButton("Prikazi istoriju pregleda");
 			btnPrikaziIstorijuPregleda.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prebaciUIstoriju();
-					textArea.setText(pacijent.Istorija());
+					GUIKontroler.prebaciUIstoriju(pacijent);
+					textArea.setText(pacijent.istorija());
 				}
 				}
 			);
@@ -164,7 +162,7 @@ public class PacijentGUI extends JFrame {
 			btnPrikaziZakazanePreglede.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					textArea.setText(null);
-					textArea.setText(pacijent.ZakazaniPregledi());
+					textArea.setText(pacijent.zakazaniPregledi());
 				}
 				}
 			);
@@ -177,12 +175,7 @@ public class PacijentGUI extends JFrame {
 			btnPromeniLekara = new JButton("Promeni lekara");
 			btnPromeniLekara.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					for (int i = 0; i < gp.lekari.size(); i++) {
-						if (gp.lekari.get(i).getImeIPrezime().equals(comboBox_1.getSelectedItem())) {
-							pacijent.setIzabraniLekar(gp.lekari.get(i));
-							break;
-						}
-					}
+					GUIKontroler.metoda4(pacijent,comboBox_1.getSelectedItem().toString());
 				}
 			});
 			btnPromeniLekara.setBounds(21, 262, 141, 32);
@@ -194,7 +187,7 @@ public class PacijentGUI extends JFrame {
 			btnZakaziPregled = new JButton("Zakazi pregled");
 			btnZakaziPregled.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					pregled = noviPregled();
+					pregled = GUIKontroler.noviPregled(pacijent,calendar,(Integer)spinField.getValue(),(Integer)comboBox_1.getSelectedItem());
 					pacijent.zakazaniPregledi.add(pregled);
 				}
 			});
@@ -207,7 +200,7 @@ public class PacijentGUI extends JFrame {
 			btnOtkaziPregled = new JButton("Otkazi pregled");
 			btnOtkaziPregled.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					pregled = noviPregled();
+					pregled = GUIKontroler.noviPregled(pacijent,calendar,(Integer)spinField.getValue(),(Integer)comboBox_1.getSelectedItem());
 					for (int i = 0; i < pacijent.zakazaniPregledi.size(); i++) {
 						Pregled p = pacijent.zakazaniPregledi.get(i);
 						if(p.getDatumIVreme().getDatum().equals(calendar.getDate()) && p.getLekar().equals(p.getLekar())
@@ -222,25 +215,6 @@ public class PacijentGUI extends JFrame {
 		}
 		return btnOtkaziPregled;
 	}
-	public Pregled noviPregled() {
-		DatumIVreme datumIVreme = new DatumIVreme();
-		datumIVreme.setDatum(calendar.getDate());
-		datumIVreme.setSati((Integer)spinField.getValue());
-		datumIVreme.setMinuti((Integer)comboBox_1.getSelectedItem());
-		Pregled p = new Pregled();
-		p.setDatumIVreme(datumIVreme);
-		p.setLekar(pacijent.getIzabraniLekar());
-		p.setPacijent(pacijent);
-		return p;
-	}
 	
-	public void prebaciUIstoriju() {
-		for (int i = 0; i < pacijent.zakazaniPregledi.size(); i++) {
-			if (pacijent.zakazaniPregledi.get(i).getDatumIVreme().getDatum().before(new Date())) {
-					pacijent.istorijaPregleda.add(pacijent.zakazaniPregledi.get(i));
-					pacijent.zakazaniPregledi.remove(i);
-			}
-		}
-	}
 }
 

@@ -75,37 +75,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		JButton btnPotvrdi = new JButton("Potvrdi");
 		btnPotvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				LinkedList<Lekar> specijalisti = GlavniProzorGUI.vratiSpecijaliste(textFieldSpecijalizacija.getText());
-				if (specijalisti != null && !specijalisti.isEmpty()) {
-					lblLekar.setVisible(true);
-					lblPacijent.setVisible(true);
-					lblVrstaPregleda.setVisible(true);
-					lblDatum.setVisible(true);
-					lblVreme.setVisible(true);
-
-					textFieldPacijent.setVisible(true);
-					textFieldVrstaPregleda.setVisible(true);
-
-					btnZakazi.setVisible(true);
-					btnPotvrdi.setVisible(false);
-
-					comboBoxLekariSpecijaliste.setVisible(true);
-					comboBoxSat.setVisible(true);
-					comboBoxMinut.setVisible(true);
-
-					calendar_1.setVisible(true);
-
-					for (int i = 0; i < specijalisti.size(); i++) {
-						comboBoxLekariSpecijaliste.addItem(specijalisti.get(i).getImeIPrezime());
-					}
-
-				} else {
-					JOptionPane j = new JOptionPane();
-					JOptionPane.showMessageDialog(j, "Ne postoji lekar sa trazenom specijalizacijom u Domu zdravlja.",
-							"Greska!", j.ERROR_MESSAGE);
-
-				}
+				GUIKontroler.metoda6(lblLekar, lblPacijent, lblVrstaPregleda, lblDatum, lblVreme, btnZakazi, btnPotvrdi, textFieldPacijent, textFieldVrstaPregleda, comboBoxLekariSpecijaliste, comboBoxSat, comboBoxMinut, calendar_1, textFieldSpecijalizacija);
 			}
 		});
 		btnPotvrdi.setBounds(335, 7, 89, 23);
@@ -178,21 +148,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			btnZakazi = new JButton("Zakazi");
 			btnZakazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Pregled p = new Pregled();
-					DatumIVreme datum = new DatumIVreme();
-
-					p.setPacijent(GlavniProzorGUI.vratiPacijenta(textFieldPacijent.getText()));
-
-					datum.setDatum(calendar_1.getDate());
-					datum.setSati((int) comboBoxSat.getSelectedItem());
-					datum.setMinuti((int) comboBoxMinut.getSelectedItem());
-
-					p.setDatumIVreme(datum);
-
-					p.setLekar(GlavniProzorGUI.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
-
-					GlavniProzorGUI.dodajPregled(p);
-
+					GUIKontroler.metoda7(textFieldPacijent, calendar_1, comboBoxMinut, comboBoxSat, comboBoxLekariSpecijaliste);
 				}
 			});
 			btnZakazi.setBounds(7, 226, 97, 25);

@@ -31,14 +31,13 @@ public class DodajPacijentaGUI extends JFrame {
 	private JTextField textField_2;
 	private JLabel lblIzabraniLekar;
 	private JComboBox comboBox;
-	private GlavniProzorGUI gp;
 	private JButton btnNapraviNalog;
 	private JButton btnOdustani;
-
+	private DodajPacijentaGUI dp;
 	/**
 	 * Create the frame.
 	 */
-	public DodajPacijentaGUI(GlavniProzorGUI gp) {
+	public DodajPacijentaGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 394, 310);
 		contentPane = new JPanel();
@@ -55,7 +54,7 @@ public class DodajPacijentaGUI extends JFrame {
 		contentPane.add(getComboBox());
 		contentPane.add(getBtnNapraviNalog());
 		contentPane.add(getBtnOdustani());
-		this.gp = gp;
+		dp = this;
 	}
 
 	private JLabel getLblUnesiteVaseIme() {
@@ -123,8 +122,8 @@ public class DodajPacijentaGUI extends JFrame {
 			comboBox = new JComboBox();
 			comboBox.setBounds(200, 181, 95, 22);
 		}
-		for (int i = 0; i < gp.lekari.size(); i++) {
-			comboBox.addItem(gp.lekari.get(i).getImeIPrezime());
+		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
+			comboBox.addItem(GUIKontroler.gp.lekari.get(i).getImeIPrezime());
 		}
 		return comboBox;
 	}
@@ -135,26 +134,7 @@ public class DodajPacijentaGUI extends JFrame {
 			btnNapraviNalog.addActionListener(new ActionListener() {
 				@SuppressWarnings("static-access")
 				public void actionPerformed(ActionEvent e) {
-					if (textField.getText() == null || textField.getText().isEmpty() || textField_1.getText() == null
-							|| textField_1.getText().isEmpty() || textField_1.getText().length() != 11 || textField_2.getText() == null
-							|| textField_2.getText().isEmpty()) {
-						JOptionPane j = new JOptionPane();
-						j.showMessageDialog(j, "Sva polja moraju biti popunjena i LBO mora imati 11 cifara.","Greska!",j.ERROR_MESSAGE);
-					} else {
-						Pacijent p = new Pacijent();
-						p.setDatumRodjenja(textField_2.getText());
-						p.setImePrezime(textField.getText());
-						p.setLbo(textField_1.getText());
-						for (int i = 0; i < gp.lekari.size(); i++) {
-							if(gp.lekari.get(i).getImeIPrezime().equals(comboBox.getSelectedItem()))
-								p.setIzabraniLekar(gp.lekari.get(i));
-						}
-						gp.pacijenti.add(p);
-						PacijentGUI pg = new PacijentGUI(p,gp);
-						pg.setTitle(p.getImePrezime() + " LBO: " + p.getLbo());
-						pg.setVisible(true);
-						dispose();
-					}
+					GUIKontroler.metoda1(textField.getText(),textField_1.getText(),textField_2.getText(),comboBox.getSelectedItem().toString(),dp);
 				}
 			});
 			btnNapraviNalog.setBounds(12, 232, 116, 25);

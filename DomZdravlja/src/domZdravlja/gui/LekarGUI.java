@@ -49,7 +49,6 @@ public class LekarGUI extends JFrame {
 		lblId.setText(lblId.getText() + " " + l.getIDLekara());
 		lblImeIPrezime.setText(lblImeIPrezime.getText() + " " + l.getImeIPrezime());
 		lblSpecijalizacija.setText(lblSpecijalizacija.getText() + " " + l.getSpecijalizacija());
-
 	}
 
 	private JButton getBtnZakaziPregledKod() {

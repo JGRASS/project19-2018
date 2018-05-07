@@ -29,8 +29,8 @@ public class GlavniProzorGUI extends JFrame {
 	private JPanel contentPane;
 	private JButton btnLekar;
 	private JButton btnPacijent;
-	public static LinkedList<Lekar> lekari = new LinkedList<Lekar>();
-	public static LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
+	public LinkedList<Lekar> lekari = new LinkedList<Lekar>();
+	public LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
 
 	private GlavniProzorGUI gp;
 	private JMenuBar menuBar;
@@ -41,21 +41,6 @@ public class GlavniProzorGUI extends JFrame {
 	private JMenuItem mntmPacijent;
 	private JMenuItem mntmExit;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GlavniProzorGUI frame = new GlavniProzorGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -102,7 +87,7 @@ public class GlavniProzorGUI extends JFrame {
 			btnLekar = new JButton("Lekar");
 			btnLekar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					OtvoriLekaraGUI o = new OtvoriLekaraGUI(gp);
+					OtvoriLekaraGUI o = new OtvoriLekaraGUI();
 					o.setVisible(true);
 				}
 			});
@@ -116,7 +101,7 @@ public class GlavniProzorGUI extends JFrame {
 			btnPacijent = new JButton("Pacijent");
 			btnPacijent.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					OtvoriPacijentaGUI o = new OtvoriPacijentaGUI(gp);
+					OtvoriPacijentaGUI o = new OtvoriPacijentaGUI();
 					o.setVisible(true);
 				}
 			});
@@ -125,47 +110,6 @@ public class GlavniProzorGUI extends JFrame {
 		return btnPacijent;
 	}
 
-	public static LinkedList<Lekar> vratiSpecijaliste(String specijalizacija) {
-		if (lekari.isEmpty())
-			return null;
-		LinkedList<Lekar> lekariSpecijaliste = new LinkedList<Lekar>();
-		for (int i = 0; i < lekari.size(); i++) {
-			Lekar l = lekari.get(i);
-			if (l.getSpecijalizacija().equals(specijalizacija))
-				lekariSpecijaliste.add(l);
-		}
-		return lekariSpecijaliste;
-	}
-
-	public static Pacijent vratiPacijenta(String imePrezime) {
-		if (pacijenti == null)
-			return null;
-		for (int i = 0; i < pacijenti.size(); i++) {
-			Pacijent p = pacijenti.get(i);
-			if (p.getImePrezime().equals(imePrezime))
-				return p;
-		}
-		return null;
-	}
-
-	public static Lekar vratiLekara(String imePrezime) {
-		if (lekari == null)
-			return null;
-		for (int i = 0; i < lekari.size(); i++) {
-			Lekar l = lekari.get(i);
-			if (l.getImeIPrezime().equals(imePrezime))
-				return l;
-		}
-		return null;
-	}
-
-	public static void dodajPregled(Pregled p) {
-		int indeks = lekari.indexOf(p.getLekar());
-		Lekar l = lekari.get(indeks);
-		LinkedList<Pregled> preglediLekara = l.getPregledi();
-		preglediLekara.add(p);
-		l.setPregledi(preglediLekara);
-	}
 	private JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
@@ -209,7 +153,7 @@ public class GlavniProzorGUI extends JFrame {
 			mntmLekar = new JMenuItem("Lekar");
 			mntmLekar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					OtvoriLekaraGUI o = new OtvoriLekaraGUI(gp);
+					OtvoriLekaraGUI o = new OtvoriLekaraGUI();
 					o.setVisible(true);
 				}
 			});
@@ -221,7 +165,7 @@ public class GlavniProzorGUI extends JFrame {
 			mntmPacijent = new JMenuItem("Pacijent");
 			mntmPacijent.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					OtvoriPacijentaGUI o = new OtvoriPacijentaGUI(gp);
+					OtvoriPacijentaGUI o = new OtvoriPacijentaGUI();
 					o.setVisible(true);
 				}
 			});

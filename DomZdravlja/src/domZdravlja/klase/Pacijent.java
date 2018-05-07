@@ -2,6 +2,9 @@ package domZdravlja.klase;
 
 import java.util.LinkedList;
 
+import sistemskeoperacije.SOIstorija;
+import sistemskeoperacije.SOZakazaniPregledi;
+
 
 public class Pacijent {
 
@@ -10,8 +13,8 @@ public class Pacijent {
 	private String datumRodjenja;
 	private Lekar izabraniLekar;
 	
-	public LinkedList<Pregled> zakazaniPregledi = new LinkedList<Pregled>();
-	public LinkedList<Pregled> istorijaPregleda = new LinkedList<Pregled>();
+	public static LinkedList<Pregled> zakazaniPregledi = new LinkedList<Pregled>();
+	public static LinkedList<Pregled> istorijaPregleda = new LinkedList<Pregled>();
 	
 	public String getImePrezime() {
 		return imePrezime;
@@ -38,20 +41,12 @@ public class Pacijent {
 		this.izabraniLekar = izabraniLekar;
 	}
 	
-	public String Istorija() {
-		String s = "";
-		for (int i = 0; i < istorijaPregleda.size(); i++) {
-			s = s + System.lineSeparator() +  istorijaPregleda.get(i).IzvestajZaPacijenta();
-		}
-		return s;
+	public String istorija() {
+		return SOIstorija.izvrsi();
 	}
 	
-	public String ZakazaniPregledi() {
-		String s = "";
-		for (int i = 0; i < zakazaniPregledi.size(); i++) {
-			s = s + System.lineSeparator() + zakazaniPregledi.get(i).IzvestajZaPacijenta();
-		}
-		return s;
+	public String zakazaniPregledi() {
+		return SOZakazaniPregledi.izvrsi();
 	}
 	
 	
