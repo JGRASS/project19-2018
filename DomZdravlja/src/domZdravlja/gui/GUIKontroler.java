@@ -1,6 +1,5 @@
 package domZdravlja.gui;
 
-
 import java.awt.EventQueue;
 import java.awt.Label;
 import java.awt.TextArea;
@@ -38,6 +37,7 @@ public class GUIKontroler {
 			}
 		});
 	}
+
 	public static LinkedList<Lekar> vratiSpecijaliste(String specijalizacija) {
 		if (GUIKontroler.gp.lekari.isEmpty())
 			return null;
@@ -105,20 +105,21 @@ public class GUIKontroler {
 		}
 		return s;
 	}
-	public static void metoda1(String textField, String textField_1, String textField_2,
-			String comboBox,DodajPacijentaGUI dp) {
-		if (textField == null || textField.isEmpty() || textField_1 == null
-				|| textField_1.isEmpty() || textField_1.length() != 11 || textField_2 == null
-				|| textField_2.isEmpty()) {
+
+	public static void metoda1(String textField, String textField_1, String textField_2, String comboBox,
+			DodajPacijentaGUI dp) {
+		if (textField == null || textField.isEmpty() || textField_1 == null || textField_1.isEmpty()
+				|| textField_1.length() != 11 || textField_2 == null || textField_2.isEmpty()) {
 			JOptionPane j = new JOptionPane();
-			j.showMessageDialog(j, "Sva polja moraju biti popunjena i LBO mora imati 11 cifara.","Greska!",j.ERROR_MESSAGE);
+			j.showMessageDialog(j, "Sva polja moraju biti popunjena i LBO mora imati 11 cifara.", "Greska!",
+					j.ERROR_MESSAGE);
 		} else {
 			Pacijent p = new Pacijent();
 			p.setDatumRodjenja(textField_2);
 			p.setImePrezime(textField);
 			p.setLbo(textField_1);
 			for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-				if(GUIKontroler.gp.lekari.get(i).getImeIPrezime().equals(comboBox))
+				if (GUIKontroler.gp.lekari.get(i).getImeIPrezime().equals(comboBox))
 					p.setIzabraniLekar(GUIKontroler.gp.lekari.get(i));
 			}
 			GUIKontroler.gp.pacijenti.add(p);
@@ -129,17 +130,16 @@ public class GUIKontroler {
 			dp.dispose();
 		}
 	}
-	public static void metoda2(String textField, String textField_1,OtvoriLekaraGUI ol) {
+
+	public static void metoda2(String textField, String textField_1, OtvoriLekaraGUI ol) {
 		String ID = textField;
 		String lozinka = textField_1;
 		if (lozinka.length() == 7 && ID.length() == 7) {
 			Lekar l = GUIKontroler.vratiLekara(lozinka, ID);
 			if (l == null) {
 				JOptionPane j = new JOptionPane();
-				j.showMessageDialog(j,
-						"Greška prilikom prijavljivanja. Ne postoji lekar sa unetim ID-om i lozinkom."
-								+ "\nPokusajte ponovo.",
-						"Greska!", j.ERROR_MESSAGE);
+				j.showMessageDialog(j, "Greška prilikom prijavljivanja. Ne postoji lekar sa unetim ID-om i lozinkom."
+						+ "\nPokusajte ponovo.", "Greska!", j.ERROR_MESSAGE);
 			} else {
 				LekarGUI lg = new LekarGUI(l);
 				lg.setVisible(true);
@@ -149,11 +149,11 @@ public class GUIKontroler {
 		} else {
 			JOptionPane j = new JOptionPane();
 			j.showMessageDialog(j,
-					"Greška prilikom prijavljivanja. ID i lozinka moraju imati po 7 karaktera."
-							+ "\nPokusajte ponovo.",
+					"Greška prilikom prijavljivanja. ID i lozinka moraju imati po 7 karaktera." + "\nPokusajte ponovo.",
 					"Greska!", j.ERROR_MESSAGE);
 		}
 	}
+
 	public static Pacijent vratiPacijentaLBO(String LBO) {
 		if (GUIKontroler.gp.pacijenti == null)
 			return null;
@@ -164,49 +164,52 @@ public class GUIKontroler {
 		}
 		return null;
 	}
-	public static void metoda3(String textFieldLBO,OtvoriPacijentaGUI op) {
+
+	public static void metoda3(String textFieldLBO, OtvoriPacijentaGUI op) {
 		if (textFieldLBO.length() == 11) {
 			Pacijent p = vratiPacijentaLBO(textFieldLBO);
 			if (p == null) {
 				JOptionPane j = new JOptionPane();
-				int opcija = j.showConfirmDialog(j, "Ne postoji pacijent sa unetim LBO. Napravi nalog?", "Greska!",j.INFORMATION_MESSAGE, j.YES_NO_OPTION);
+				int opcija = j.showConfirmDialog(j, "Ne postoji pacijent sa unetim LBO. Napravi nalog?", "Greska!",
+						j.INFORMATION_MESSAGE, j.YES_NO_OPTION);
 				if (opcija == JOptionPane.YES_OPTION) {
 					DodajPacijentaGUI dp = new DodajPacijentaGUI();
 					dp.setVisible(true);
-				}					
-			}
-			else {
+				}
+			} else {
 				PacijentGUI pg = new PacijentGUI(p);
 				pg.setVisible(true);
 				GUIKontroler.gp.dispose();
 				op.dispose();
 			}
-		}
-		else {
+		} else {
 			JOptionPane j = new JOptionPane();
-			j.showMessageDialog(j, "Pogresno unet LBO. Mora imati 11 znakova.\nPokusajte ponovo.", "Greska!",j.ERROR_MESSAGE);
+			j.showMessageDialog(j, "Pogresno unet LBO. Mora imati 11 znakova.\nPokusajte ponovo.", "Greska!",
+					j.ERROR_MESSAGE);
 		}
 	}
-	public static Pregled noviPregled(Pacijent pacijent,JCalendar calendar,int spinField,int comboBox_1) {
+
+	public static Pregled noviPregled(Pacijent pacijent, JCalendar calendar, int spinField, int comboBox_1) {
 		DatumIVreme datumIVreme = new DatumIVreme();
 		datumIVreme.setDatum(calendar.getDate());
-		datumIVreme.setSati((Integer)spinField);
-		datumIVreme.setMinuti((Integer)comboBox_1);
+		datumIVreme.setSati((Integer) spinField);
+		datumIVreme.setMinuti((Integer) comboBox_1);
 		Pregled p = new Pregled();
 		p.setDatumIVreme(datumIVreme);
 		p.setLekar(pacijent.getIzabraniLekar());
 		p.setPacijent(pacijent);
 		return p;
 	}
-	
+
 	public static void prebaciUIstoriju(Pacijent pacijent) {
 		for (int i = 0; i < pacijent.zakazaniPregledi.size(); i++) {
 			if (pacijent.zakazaniPregledi.get(i).getDatumIVreme().getDatum().before(new Date())) {
-					pacijent.istorijaPregleda.add(pacijent.zakazaniPregledi.get(i));
-					pacijent.zakazaniPregledi.remove(i);
+				pacijent.istorijaPregleda.add(pacijent.zakazaniPregledi.get(i));
+				pacijent.zakazaniPregledi.remove(i);
 			}
 		}
 	}
+
 	public static void metoda4(Pacijent pacijent, String comboBox_1) {
 		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
 			if (GUIKontroler.gp.lekari.get(i).getImeIPrezime().equals(comboBox_1)) {
@@ -215,7 +218,9 @@ public class GUIKontroler {
 			}
 		}
 	}
-	public static void metoda5(java.util.Date dateChooserOD,java.util.Date dateChooserDO,TextArea textAreaPregledi,JLabel lblZakazniPregledi) {
+
+	public static void metoda5(java.util.Date dateChooserOD, java.util.Date dateChooserDO, TextArea textAreaPregledi,
+			JLabel lblZakazniPregledi) {
 		java.util.Date datumOd = dateChooserOD;
 		java.util.Date datumDo = dateChooserOD;
 
@@ -229,21 +234,21 @@ public class GUIKontroler {
 			textAreaPregledi.setText(s);
 
 	}
-	public static void metoda6(JLabel lblLekar,JLabel lblPacijent, JLabel lblVrstaPregleda
-			,JLabel lblDatum,Label lblVreme,JButton btnZakazi, JButton btnPotvrdi, JTextField textFieldPacijent,
-			JTextField textFieldVrstaPregleda, JComboBox comboBoxLekariSpecijaliste, JComboBox comboBoxSat,
-			JComboBox comboBoxMinut, JCalendar calendar_1, JTextField textFieldSpecijalizacija) {
+
+	public static void metoda6(JLabel lblLekar, JLabel lblPacijent, JLabel lblDatum,
+			Label lblVreme, JButton btnZakazi, JButton btnPotvrdi, JTextField textFieldPacijent,
+			JComboBox comboBoxLekariSpecijaliste, JComboBox comboBoxSat, JComboBox comboBoxMinut, JCalendar calendar_1,
+			JTextField textFieldSpecijalizacija) {
 
 		LinkedList<Lekar> specijalisti = GUIKontroler.vratiSpecijaliste(textFieldSpecijalizacija.getText());
 		if (specijalisti != null && !specijalisti.isEmpty()) {
 			lblLekar.setVisible(true);
 			lblPacijent.setVisible(true);
-			lblVrstaPregleda.setVisible(true);
+
 			lblDatum.setVisible(true);
 			lblVreme.setVisible(true);
 
 			textFieldPacijent.setVisible(true);
-			textFieldVrstaPregleda.setVisible(true);
 
 			btnZakazi.setVisible(true);
 			btnPotvrdi.setVisible(false);
@@ -265,8 +270,9 @@ public class GUIKontroler {
 
 		}
 	}
-	public static void metoda7(JTextField textFieldPacijent, JCalendar calendar_1,JComboBox comboBoxMinut,
-			JComboBox comboBoxSat,JComboBox comboBoxLekariSpecijaliste) {
+
+	public static void metoda7(JTextField textFieldPacijent, JCalendar calendar_1, JComboBox comboBoxMinut,
+			JComboBox comboBoxSat, JComboBox comboBoxLekariSpecijaliste) {
 		Pregled p = new Pregled();
 		DatumIVreme datum = new DatumIVreme();
 

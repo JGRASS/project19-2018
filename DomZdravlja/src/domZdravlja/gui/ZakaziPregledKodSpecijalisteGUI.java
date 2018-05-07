@@ -26,8 +26,6 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	private JLabel lblLekar;
 	private JLabel lblPacijent;
 	private JTextField textFieldPacijent;
-	private JTextField textFieldVrstaPregleda;
-	private JLabel lblVrstaPregleda;
 	private JLabel lblDatum;
 	private JButton btnZakazi;
 	private JTextField textFieldSpecijalizacija;
@@ -53,18 +51,14 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		contentPane.add(getLblLekar());
 		contentPane.add(getLblPacijent());
 		contentPane.add(getTextFieldPacijent());
-		contentPane.add(getTextFieldVrstaPregleda());
-		contentPane.add(getLblVrstaPregleda());
 		contentPane.add(getLblDatum());
 		contentPane.add(getBtnZakazi());
 
 		lblLekar.setVisible(false);
 		lblPacijent.setVisible(false);
-		lblVrstaPregleda.setVisible(false);
 		lblDatum.setVisible(false);
 
 		textFieldPacijent.setVisible(false);
-		textFieldVrstaPregleda.setVisible(false);
 
 		btnZakazi.setVisible(false);
 
@@ -75,7 +69,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		JButton btnPotvrdi = new JButton("Potvrdi");
 		btnPotvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIKontroler.metoda6(lblLekar, lblPacijent, lblVrstaPregleda, lblDatum, lblVreme, btnZakazi, btnPotvrdi, textFieldPacijent, textFieldVrstaPregleda, comboBoxLekariSpecijaliste, comboBoxSat, comboBoxMinut, calendar_1, textFieldSpecijalizacija);
+				GUIKontroler.metoda6(lblLekar, lblPacijent, lblDatum, lblVreme, btnZakazi, btnPotvrdi, textFieldPacijent, comboBoxLekariSpecijaliste, comboBoxSat, comboBoxMinut, calendar_1, textFieldSpecijalizacija);
 			}
 		});
 		btnPotvrdi.setBounds(335, 7, 89, 23);
@@ -116,23 +110,6 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			textFieldPacijent.setColumns(10);
 		}
 		return textFieldPacijent;
-	}
-
-	private JTextField getTextFieldVrstaPregleda() {
-		if (textFieldVrstaPregleda == null) {
-			textFieldVrstaPregleda = new JTextField();
-			textFieldVrstaPregleda.setBounds(114, 129, 116, 22);
-			textFieldVrstaPregleda.setColumns(10);
-		}
-		return textFieldVrstaPregleda;
-	}
-
-	private JLabel getLblVrstaPregleda() {
-		if (lblVrstaPregleda == null) {
-			lblVrstaPregleda = new JLabel("Vrsta pregleda:");
-			lblVrstaPregleda.setBounds(12, 132, 92, 16);
-		}
-		return lblVrstaPregleda;
 	}
 
 	private JLabel getLblDatum() {
