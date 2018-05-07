@@ -281,17 +281,24 @@ public class GUIKontroler {
 		Pregled p = new Pregled();
 		DatumIVreme datum = new DatumIVreme();
 
-		p.setPacijent(GUIKontroler.vratiPacijentaIme(imePrezime));
+		if (GUIKontroler.vratiPacijentaIme(imePrezime) != null && comboBoxLekariSpecijaliste.getSelectedItem() != null
+				&& calendar_1.getDate() != null && comboBoxMinut.getSelectedItem() != null
+				&& comboBoxSat.getSelectedItem() != null) {
+			p.setPacijent(GUIKontroler.vratiPacijentaIme(imePrezime));
 
-		datum.setDatum(calendar_1.getDate());
-		datum.setSati((int) comboBoxSat.getSelectedItem());
-		datum.setMinuti((int) comboBoxMinut.getSelectedItem());
+			datum.setDatum(calendar_1.getDate());
+			datum.setSati((int) comboBoxSat.getSelectedItem());
+			datum.setMinuti((int) comboBoxMinut.getSelectedItem());
 
-		p.setDatumIVreme(datum);
+			p.setDatumIVreme(datum);
 
-		p.setLekar(GUIKontroler.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
+			p.setLekar(GUIKontroler.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
 
-		GUIKontroler.dodajPregled(p);
+			GUIKontroler.dodajPregled(p);
+		} else {
+			JOptionPane j = new JOptionPane();
+			JOptionPane.showMessageDialog(j, "Morate izabrati vrednosti u svim poljima!", "Greska!", j.ERROR_MESSAGE);
+		}
 
 	}
 }
