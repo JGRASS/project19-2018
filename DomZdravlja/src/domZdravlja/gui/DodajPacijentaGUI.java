@@ -170,7 +170,7 @@ public class DodajPacijentaGUI extends JFrame {
 					dispose();
 				}
 			});
-			btnOdustani.setBounds(222, 232, 97, 25);
+			btnOdustani.setBounds(222, 232, 105, 25);
 		}
 		return btnOdustani;
 	}
