@@ -59,11 +59,12 @@ public class GlavniProzorGUI extends JFrame {
 		Lekar l = new Lekar();
 		l.setIDLekara("1234567");
 		l.setImeIPrezime("Bojan Djekic");
-		l.setPregledi(null);
 		l.setSifra("1234567");
 		l.setSpecijalizacija("Ginekolog");
 		LinkedList<Pregled> pregledi = new LinkedList<>();
 		l.setPregledi(pregledi);
+		LinkedList<Pacijent> pacijenti = new LinkedList<>();
+		l.setPacijenti(pacijenti);
 
 		lekari.add(l);
 

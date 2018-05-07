@@ -30,10 +30,12 @@ public class Lekar {
 	private String sifra;
 	/**
 	 * Zakazani pregledi Lekara.
+	 * @see domZdravlja.klase.Pregled
 	 */
 	private LinkedList<Pregled> pregledi = new LinkedList<Pregled>();
 	/**
 	 * Pacijenti lekara.
+	 * @see domZdravlja.klase.Pacijent
 	 */
 	private LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
 
