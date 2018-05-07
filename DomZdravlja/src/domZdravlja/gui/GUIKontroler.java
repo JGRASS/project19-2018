@@ -1,12 +1,9 @@
 package domZdravlja.gui;
 
-import java.awt.Button;
+
 import java.awt.EventQueue;
 import java.awt.Label;
 import java.awt.TextArea;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -14,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JCalendar;
@@ -99,8 +95,6 @@ public class GUIKontroler {
 		LinkedList<Pregled> sviPregledi = new LinkedList<>();
 		sviPregledi = PrikaziZakazanePregledeGUI.lekar.getPregledi();
 
-		if (sviPregledi == null)
-			return "Ne postoji ni jedan zakazan pregled.";
 		String s = "";
 
 		for (int i = 0; i < sviPregledi.size(); i++) {
@@ -230,7 +224,7 @@ public class GUIKontroler {
 
 		String s = GUIKontroler.prikaziZakazanePreglede(datumOd, datumDo);
 		if (s.equals(""))
-			textAreaPregledi.setText("Ne postoji ni jedan zakazani pregled u trazenom preodu.");
+			textAreaPregledi.setText("Ne postoji ni jedan zakazani pregled u trazenom periodu.");
 		else
 			textAreaPregledi.setText(s);
 
