@@ -18,6 +18,7 @@ import com.toedter.calendar.JCalendar;
 
 import domZdravlja.klase.DatumIVreme;
 import domZdravlja.klase.Lekar;
+import domZdravlja.klase.Pacijent;
 import domZdravlja.klase.Pregled;
 
 public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
@@ -25,7 +26,6 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblLekar;
 	private JLabel lblPacijent;
-	private JTextField textFieldPacijent;
 	private JLabel lblDatum;
 	private JButton btnZakazi;
 	private JTextField textFieldSpecijalizacija;
@@ -36,11 +36,13 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	private Label lblVreme;
 	private JComboBox comboBoxSat;
 	private JComboBox comboBoxMinut;
+	private JComboBox comboBoxPacijenti;
 
 	/**
 	 * Create the frame.
 	 */
 	public ZakaziPregledKodSpecijalisteGUI() {
+		
 		setTitle("Zakazi pregled kod specijaliste");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -50,15 +52,12 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(getLblLekar());
 		contentPane.add(getLblPacijent());
-		contentPane.add(getTextFieldPacijent());
 		contentPane.add(getLblDatum());
 		contentPane.add(getBtnZakazi());
 
 		lblLekar.setVisible(false);
 		lblPacijent.setVisible(false);
 		lblDatum.setVisible(false);
-
-		textFieldPacijent.setVisible(false);
 
 		btnZakazi.setVisible(false);
 
@@ -69,7 +68,9 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		JButton btnPotvrdi = new JButton("Potvrdi");
 		btnPotvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIKontroler.metoda6(lblLekar, lblPacijent, lblDatum, lblVreme, btnZakazi, btnPotvrdi, textFieldPacijent, comboBoxLekariSpecijaliste, comboBoxSat, comboBoxMinut, calendar_1, textFieldSpecijalizacija);
+				GUIKontroler.metoda6(lblLekar, comboBoxPacijenti, lblDatum, lblVreme, btnZakazi, btnPotvrdi,
+						lblPacijent, comboBoxLekariSpecijaliste, comboBoxSat, comboBoxMinut, calendar_1,
+						textFieldSpecijalizacija);
 			}
 		});
 		btnPotvrdi.setBounds(335, 7, 89, 23);
@@ -84,6 +85,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		contentPane.add(getLblVreme());
 		contentPane.add(getComboBoxSat());
 		contentPane.add(getComboBoxMinut());
+		contentPane.add(getComboBoxPacijenti());
 
 	}
 
@@ -103,15 +105,6 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 		return lblPacijent;
 	}
 
-	private JTextField getTextFieldPacijent() {
-		if (textFieldPacijent == null) {
-			textFieldPacijent = new JTextField();
-			textFieldPacijent.setBounds(114, 96, 116, 22);
-			textFieldPacijent.setColumns(10);
-		}
-		return textFieldPacijent;
-	}
-
 	private JLabel getLblDatum() {
 		if (lblDatum == null) {
 			lblDatum = new JLabel("Datum:");
@@ -125,7 +118,8 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			btnZakazi = new JButton("Zakazi");
 			btnZakazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					GUIKontroler.metoda7(textFieldPacijent, calendar_1, comboBoxMinut, comboBoxSat, comboBoxLekariSpecijaliste);
+					GUIKontroler.metoda7((String)comboBoxPacijenti.getSelectedItem(), calendar_1, comboBoxMinut, comboBoxSat,
+							comboBoxLekariSpecijaliste);
 				}
 			});
 			btnZakazi.setBounds(7, 226, 97, 25);
@@ -186,5 +180,14 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			comboBoxMinut.setVisible(false);
 		}
 		return comboBoxMinut;
+	}
+
+	private JComboBox getComboBoxPacijenti() {
+		if (comboBoxPacijenti == null) {
+			comboBoxPacijenti = new JComboBox();
+			comboBoxPacijenti.setBounds(113, 96, 116, 22);
+			comboBoxPacijenti.setVisible(false);
+		}
+		return comboBoxPacijenti;
 	}
 }

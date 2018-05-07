@@ -235,12 +235,12 @@ public class GUIKontroler {
 
 	}
 
-	public static void metoda6(JLabel lblLekar, JLabel lblPacijent, JLabel lblDatum,
-			Label lblVreme, JButton btnZakazi, JButton btnPotvrdi, JTextField textFieldPacijent,
-			JComboBox comboBoxLekariSpecijaliste, JComboBox comboBoxSat, JComboBox comboBoxMinut, JCalendar calendar_1,
-			JTextField textFieldSpecijalizacija) {
+	public static void metoda6(JLabel lblLekar, JComboBox comboBoxPacijenti, JLabel lblDatum, Label lblVreme,
+			JButton btnZakazi, JButton btnPotvrdi, JLabel lblPacijent, JComboBox comboBoxLekariSpecijaliste,
+			JComboBox comboBoxSat, JComboBox comboBoxMinut, JCalendar calendar_1, JTextField textFieldSpecijalizacija) {
 
 		LinkedList<Lekar> specijalisti = GUIKontroler.vratiSpecijaliste(textFieldSpecijalizacija.getText());
+
 		if (specijalisti != null && !specijalisti.isEmpty()) {
 			lblLekar.setVisible(true);
 			lblPacijent.setVisible(true);
@@ -248,12 +248,11 @@ public class GUIKontroler {
 			lblDatum.setVisible(true);
 			lblVreme.setVisible(true);
 
-			textFieldPacijent.setVisible(true);
-
 			btnZakazi.setVisible(true);
 			btnPotvrdi.setVisible(false);
 
 			comboBoxLekariSpecijaliste.setVisible(true);
+			comboBoxPacijenti.setVisible(true);
 			comboBoxSat.setVisible(true);
 			comboBoxMinut.setVisible(true);
 
@@ -261,6 +260,12 @@ public class GUIKontroler {
 
 			for (int i = 0; i < specijalisti.size(); i++) {
 				comboBoxLekariSpecijaliste.addItem(specijalisti.get(i).getImeIPrezime());
+			}
+
+			LinkedList<Pacijent> sviPacijenti = GUIKontroler.gp.pacijenti;
+
+			for (int i = 0; i < sviPacijenti.size(); i++) {
+				comboBoxPacijenti.addItem(sviPacijenti.get(i).getImePrezime());
 			}
 
 		} else {
@@ -271,12 +276,12 @@ public class GUIKontroler {
 		}
 	}
 
-	public static void metoda7(JTextField textFieldPacijent, JCalendar calendar_1, JComboBox comboBoxMinut,
-			JComboBox comboBoxSat, JComboBox comboBoxLekariSpecijaliste) {
+	public static void metoda7(String imePrezime, JCalendar calendar_1, JComboBox comboBoxMinut, JComboBox comboBoxSat,
+			JComboBox comboBoxLekariSpecijaliste) {
 		Pregled p = new Pregled();
 		DatumIVreme datum = new DatumIVreme();
 
-		p.setPacijent(GUIKontroler.vratiPacijentaIme(textFieldPacijent.getText()));
+		p.setPacijent(GUIKontroler.vratiPacijentaIme(imePrezime));
 
 		datum.setDatum(calendar_1.getDate());
 		datum.setSati((int) comboBoxSat.getSelectedItem());
