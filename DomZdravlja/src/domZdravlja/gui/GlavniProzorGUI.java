@@ -2,6 +2,13 @@ package domZdravlja.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
@@ -18,7 +25,7 @@ import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pacijent;
 import domZdravlja.klase.Pregled;
 
-public class GlavniProzorGUI extends JFrame {
+public class GlavniProzorGUI extends JFrame implements Serializable{
 
 	private JPanel contentPane;
 	private JButton btnLekar;
@@ -26,7 +33,6 @@ public class GlavniProzorGUI extends JFrame {
 	public LinkedList<Lekar> lekari = new LinkedList<Lekar>();
 	public LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
 
-	private GlavniProzorGUI gp;
 	private JMenuBar menuBar;
 	private JMenu mnFile;
 	private JMenu mnHelp;
@@ -39,6 +45,7 @@ public class GlavniProzorGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GlavniProzorGUI() {
+		setResizable(false);
 		setTitle("Dom Zdravlja");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -52,8 +59,8 @@ public class GlavniProzorGUI extends JFrame {
 
 		JLabel lblNastaviteRadKao = new JLabel("Nastavite rad kao:");
 		lblNastaviteRadKao.setBounds(46, 58, 127, 16);
-		contentPane.add(lblNastaviteRadKao);
-		this.gp = this;
+		contentPane.add(lblNastaviteRadKao);	
+		
 		// Narednih par linija koda su proba, ubacujem lekara u listu da ne bi bila
 		// prazna, da bih mogao da testiram
 		Lekar l = new Lekar();
@@ -63,11 +70,11 @@ public class GlavniProzorGUI extends JFrame {
 		l.setSpecijalizacija("Ginekolog");
 		LinkedList<Pregled> pregledi = new LinkedList<>();
 		l.setPregledi(pregledi);
-		LinkedList<Pacijent> pacijenti = new LinkedList<>();
-		l.setPacijenti(pacijenti);
+		LinkedList<Pacijent> pacijentiLekara = new LinkedList<>();
+		l.setPacijenti(pacijentiLekara);
 
 		lekari.add(l);
-
+		
 		// proba - pacijent
 		Pacijent p = new Pacijent();
 		p.setImePrezime("Mila Dikic");
@@ -76,7 +83,6 @@ public class GlavniProzorGUI extends JFrame {
 		p.setIzabraniLekar(l);
 
 		pacijenti.add(p);
-
 	}
 
 	private JButton getBtnLekar() {
@@ -110,7 +116,7 @@ public class GlavniProzorGUI extends JFrame {
 	private JMenuBar getMenuBar_1() {
 		if (menuBar == null) {
 			menuBar = new JMenuBar();
-			menuBar.setBounds(0, 0, 432, 26);
+			menuBar.setBounds(0, 0, 444, 26);
 			menuBar.add(getMnFile());
 			menuBar.add(getMnHelp());
 		}

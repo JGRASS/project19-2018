@@ -42,6 +42,7 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public ZakaziPregledKodSpecijalisteGUI() {
+		setResizable(false);
 		
 		setTitle("Zakazi pregled kod specijaliste");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

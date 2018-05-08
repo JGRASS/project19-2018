@@ -30,6 +30,7 @@ public class LekarGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public LekarGUI(Lekar l) {
+		setResizable(false);
 		lekar = l;
 
 		setTitle("Lekar");

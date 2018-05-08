@@ -45,6 +45,7 @@ public class PacijentGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public PacijentGUI(Pacijent pacijent) {
+		setResizable(false);
 		this.pacijent = pacijent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 759, 477);

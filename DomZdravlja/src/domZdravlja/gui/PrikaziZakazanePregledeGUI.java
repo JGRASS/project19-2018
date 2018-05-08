@@ -41,6 +41,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public PrikaziZakazanePregledeGUI(Lekar l) {
+		setResizable(false);
 		lekar = l;
 
 		setTitle("Zakazani pregledi");

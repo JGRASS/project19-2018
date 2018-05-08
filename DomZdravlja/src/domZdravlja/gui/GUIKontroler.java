@@ -78,7 +78,7 @@ public class GUIKontroler {
 		LinkedList<Pregled> preglediLekara = new LinkedList<Pregled>();
 		preglediLekara = l.getPregledi();
 		preglediLekara.add(p);
-		l.setPregledi(preglediLekara);
+		GUIKontroler.gp.lekari.get(indeks).setPregledi(preglediLekara);
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
