@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextPane;
 import java.awt.TextArea;
+import com.toedter.calendar.JCalendar;
 
 public class PrikaziZakazanePregledeGUI extends JFrame {
 
@@ -32,10 +33,11 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 	private JLabel lblDo;
 	private JLabel lblZakazniPregledi;
 	private JButton btnPrikaziPreglede;
-	private JDateChooser dateChooserOD;
-	private JDateChooser dateChooserDO;
 	public static Lekar lekar;
 	private TextArea textAreaPregledi;
+	private JCalendar calendarOD;
+	private JCalendar calendarDO;
+	
 
 	/**
 	 * Create the frame.
@@ -56,16 +58,16 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 		contentPane.add(getLblDo());
 		contentPane.add(getLblZakazniPregledi());
 		contentPane.add(getBtnPrikaziPreglede());
-		contentPane.add(getDateChooserOD());
-		contentPane.add(getDateChooserDO());
 		contentPane.add(getTextAreaPregledi());
+		contentPane.add(getCalendarOD());
+		contentPane.add(getCalendarDO());
 
 	}
 
 	private JLabel getLblIzaberiteInterval() {
 		if (lblIzaberiteInterval == null) {
 			lblIzaberiteInterval = new JLabel("Izaberite interval:");
-			lblIzaberiteInterval.setBounds(12, 13, 130, 30);
+			lblIzaberiteInterval.setBounds(0, 0, 130, 30);
 		}
 		return lblIzaberiteInterval;
 	}
@@ -73,7 +75,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 	private JLabel getLblOd() {
 		if (lblOd == null) {
 			lblOd = new JLabel("Od:");
-			lblOd.setBounds(12, 59, 56, 16);
+			lblOd.setBounds(0, 25, 56, 16);
 		}
 		return lblOd;
 	}
@@ -81,7 +83,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 	private JLabel getLblDo() {
 		if (lblDo == null) {
 			lblDo = new JLabel("Do:");
-			lblDo.setBounds(173, 59, 56, 16);
+			lblDo.setBounds(217, 25, 56, 16);
 		}
 		return lblDo;
 	}
@@ -89,7 +91,7 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 	private JLabel getLblZakazniPregledi() {
 		if (lblZakazniPregledi == null) {
 			lblZakazniPregledi = new JLabel("Zakazni pregledi:");
-			lblZakazniPregledi.setBounds(12, 128, 130, 16);
+			lblZakazniPregledi.setBounds(12, 155, 130, 16);
 			lblZakazniPregledi.setVisible(false);
 		}
 		return lblZakazniPregledi;
@@ -100,36 +102,34 @@ public class PrikaziZakazanePregledeGUI extends JFrame {
 			btnPrikaziPreglede = new JButton("Prikazi preglede");
 			btnPrikaziPreglede.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					GUIKontroler.metoda5(dateChooserOD.getDate(), dateChooserOD.getDate(),textAreaPregledi,lblZakazniPregledi);
+					GUIKontroler.metoda5(calendarOD.getDate(), calendarDO.getDate(),textAreaPregledi,lblZakazniPregledi);
 				}
 			});
-			btnPrikaziPreglede.setBounds(12, 90, 149, 25);
+			btnPrikaziPreglede.setBounds(12, 125, 149, 25);
 		}
 		return btnPrikaziPreglede;
-	}
-
-	private JDateChooser getDateChooserOD() {
-		if (dateChooserOD == null) {
-			dateChooserOD = new JDateChooser();
-			dateChooserOD.setBounds(42, 56, 100, 22);
-		}
-		return dateChooserOD;
-	}
-
-	private JDateChooser getDateChooserDO() {
-		if (dateChooserDO == null) {
-			dateChooserDO = new JDateChooser();
-			dateChooserDO.setBounds(216, 53, 100, 22);
-		}
-		return dateChooserDO;
 	}
 
 	private TextArea getTextAreaPregledi() {
 		if (textAreaPregledi == null) {
 			textAreaPregledi = new TextArea();
-			textAreaPregledi.setBounds(10, 152, 412, 91);
+			textAreaPregledi.setBounds(10, 177, 412, 66);
 			textAreaPregledi.setVisible(false);
 		}
 		return textAreaPregledi;
+	}
+	private JCalendar getCalendarOD() {
+		if (calendarOD == null) {
+			calendarOD = new JCalendar();
+			calendarOD.setBounds(31, 25, 162, 98);
+		}
+		return calendarOD;
+	}
+	private JCalendar getCalendarDO() {
+		if (calendarDO == null) {
+			calendarDO = new JCalendar();
+			calendarDO.setBounds(259, 25, 162, 98);
+		}
+		return calendarDO;
 	}
 }

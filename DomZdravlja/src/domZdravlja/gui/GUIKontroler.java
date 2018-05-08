@@ -101,7 +101,7 @@ public class GUIKontroler {
 			Pregled p = sviPregledi.get(i);
 			java.util.Date datum = p.getDatumIVreme().getDatum();
 			if ((datum.equals(datumOd) || datum.after(datumOd)) && (datum.equals(datumDo) || datum.before(datumDo)))
-				s = s + "\n " + p.toString();
+				s = s + "\n " + p.IzvestajZaLekara();
 		}
 		return s;
 	}
@@ -219,15 +219,13 @@ public class GUIKontroler {
 		}
 	}
 
-	public static void metoda5(java.util.Date dateChooserOD, java.util.Date dateChooserDO, TextArea textAreaPregledi,
+	public static void metoda5(java.util.Date datumOD, java.util.Date datumDO, TextArea textAreaPregledi,
 			JLabel lblZakazniPregledi) {
-		java.util.Date datumOd = dateChooserOD;
-		java.util.Date datumDo = dateChooserOD;
-
+		
 		lblZakazniPregledi.setVisible(true);
 		textAreaPregledi.setVisible(true);
 
-		String s = GUIKontroler.prikaziZakazanePreglede(datumOd, datumDo);
+		String s = GUIKontroler.prikaziZakazanePreglede(datumOD, datumDO);
 		if (s.equals(""))
 			textAreaPregledi.setText("Ne postoji ni jedan zakazani pregled u trazenom periodu.");
 		else
