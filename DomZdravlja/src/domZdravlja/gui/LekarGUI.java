@@ -25,6 +25,7 @@ public class LekarGUI extends JFrame {
 	private JLabel lblSpecijalizacija;
 	private JButton btnKrajRada;
 	private Lekar lekar;
+	private JLabel lblImeSkriveno;
 
 	/**
 	 * Create the frame.
@@ -50,6 +51,8 @@ public class LekarGUI extends JFrame {
 		lblId.setText(lblId.getText() + " " + l.getIDLekara());
 		lblImeIPrezime.setText(lblImeIPrezime.getText() + " " + l.getImeIPrezime());
 		lblSpecijalizacija.setText(lblSpecijalizacija.getText() + " " + l.getSpecijalizacija());
+		contentPane.add(getLblImeSkriveno());
+		lblImeSkriveno.setText(l.getImeIPrezime());
 	}
 
 	private JButton getBtnZakaziPregledKod() {
@@ -57,7 +60,7 @@ public class LekarGUI extends JFrame {
 			btnZakaziPregledKod = new JButton("Zakazi pregled kod specijaliste");
 			btnZakaziPregledKod.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ZakaziPregledKodSpecijalisteGUI z = new ZakaziPregledKodSpecijalisteGUI();
+					ZakaziPregledKodSpecijalisteGUI z = new ZakaziPregledKodSpecijalisteGUI(lblImeSkriveno.getText());
 					z.setVisible(true);
 				}
 			});
@@ -120,5 +123,12 @@ public class LekarGUI extends JFrame {
 		}
 		return btnKrajRada;
 	}
-
+	private JLabel getLblImeSkriveno() {
+		if (lblImeSkriveno == null) {
+			lblImeSkriveno = new JLabel("New label");
+			lblImeSkriveno.setBounds(323, 13, 56, 16);
+			lblImeSkriveno.setVisible(false);
+		}
+		return lblImeSkriveno;
+	}
 }

@@ -221,7 +221,7 @@ public class GUIKontroler {
 
 	public static void metoda5(java.util.Date datumOD, java.util.Date datumDO, TextArea textAreaPregledi,
 			JLabel lblZakazniPregledi) {
-		
+
 		lblZakazniPregledi.setVisible(true);
 		textAreaPregledi.setVisible(true);
 
@@ -275,28 +275,47 @@ public class GUIKontroler {
 	}
 
 	public static void metoda7(String imePrezime, JCalendar calendar_1, JComboBox comboBoxMinut, JComboBox comboBoxSat,
-			JComboBox comboBoxLekariSpecijaliste) {
+			JComboBox comboBoxLekariSpecijaliste, String imeLekara) {
 		Pregled p = new Pregled();
 		DatumIVreme datum = new DatumIVreme();
 
 		if (GUIKontroler.vratiPacijentaIme(imePrezime) != null && comboBoxLekariSpecijaliste.getSelectedItem() != null
 				&& calendar_1.getDate() != null && comboBoxMinut.getSelectedItem() != null
 				&& comboBoxSat.getSelectedItem() != null) {
-			p.setPacijent(GUIKontroler.vratiPacijentaIme(imePrezime));
+			Lekar l = GUIKontroler.vratiLekara(imeLekara);
+			if (daLiPostojiPregledUIstoVreme(l.getPregledi(), (int) comboBoxSat.getSelectedItem(),
+					(int) comboBoxMinut.getSelectedItem())) {
+				JOptionPane j = new JOptionPane();
+				JOptionPane.showMessageDialog(j, "Postoji zakazan pregled u to vreme, izaberite drugo vreme!",
+						"Greska!", j.ERROR_MESSAGE);
+			} else {
+				p.setPacijent(GUIKontroler.vratiPacijentaIme(imePrezime));
 
-			datum.setDatum(calendar_1.getDate());
-			datum.setSati((int) comboBoxSat.getSelectedItem());
-			datum.setMinuti((int) comboBoxMinut.getSelectedItem());
+				datum.setDatum(calendar_1.getDate());
+				datum.setSati((int) comboBoxSat.getSelectedItem());
+				datum.setMinuti((int) comboBoxMinut.getSelectedItem());
 
-			p.setDatumIVreme(datum);
+				p.setDatumIVreme(datum);
 
-			p.setLekar(GUIKontroler.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
+				p.setLekar(GUIKontroler.vratiLekara((String) comboBoxLekariSpecijaliste.getSelectedItem()));
 
-			GUIKontroler.dodajPregled(p);
+				GUIKontroler.dodajPregled(p);
+			}
 		} else {
 			JOptionPane j = new JOptionPane();
 			JOptionPane.showMessageDialog(j, "Morate izabrati vrednosti u svim poljima!", "Greska!", j.ERROR_MESSAGE);
 		}
 
+	}
+
+	public static boolean daLiPostojiPregledUIstoVreme(LinkedList<Pregled> preglediVreme, int sat, int minut) {
+		if (preglediVreme.isEmpty())
+			return false;
+		for (int i = 0; i < preglediVreme.size(); i++) {
+			Pregled p = preglediVreme.get(i);
+			if (p.getDatumIVreme().getSati() == sat && p.getDatumIVreme().getMinuti() == minut)
+				return true;
+		}
+		return false;
 	}
 }

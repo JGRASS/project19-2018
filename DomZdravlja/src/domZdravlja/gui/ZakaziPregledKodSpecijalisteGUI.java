@@ -41,10 +41,10 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ZakaziPregledKodSpecijalisteGUI() {
+	public ZakaziPregledKodSpecijalisteGUI(String imeLekara) {
 		setResizable(false);
-		
-		setTitle("Zakazi pregled kod specijaliste");
+
+		setTitle(imeLekara);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -119,8 +119,8 @@ public class ZakaziPregledKodSpecijalisteGUI extends JFrame {
 			btnZakazi = new JButton("Zakazi");
 			btnZakazi.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					GUIKontroler.metoda7((String)comboBoxPacijenti.getSelectedItem(), calendar_1, comboBoxMinut, comboBoxSat,
-							comboBoxLekariSpecijaliste);
+					GUIKontroler.metoda7((String) comboBoxPacijenti.getSelectedItem(), calendar_1, comboBoxMinut,
+							comboBoxSat, comboBoxLekariSpecijaliste, getTitle());
 				}
 			});
 			btnZakazi.setBounds(7, 226, 97, 25);
