@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,6 +21,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
 import domZdravlja.klase.Lekar;
 import domZdravlja.klase.Pacijent;
@@ -61,28 +66,38 @@ public class GlavniProzorGUI extends JFrame implements Serializable{
 		lblNastaviteRadKao.setBounds(46, 58, 127, 16);
 		contentPane.add(lblNastaviteRadKao);	
 		
-		// Narednih par linija koda su proba, ubacujem lekara u listu da ne bi bila
-		// prazna, da bih mogao da testiram
-		Lekar l = new Lekar();
-		l.setIDLekara("1234567");
-		l.setImeIPrezime("Bojan Djekic");
-		l.setSifra("1234567");
-		l.setSpecijalizacija("Ginekolog");
-		LinkedList<Pregled> pregledi = new LinkedList<>();
-		l.setPregledi(pregledi);
-		LinkedList<Pacijent> pacijentiLekara = new LinkedList<>();
-		l.setPacijenti(pacijentiLekara);
-
-		lekari.add(l);
 		
-		// proba - pacijent
-		Pacijent p = new Pacijent();
-		p.setImePrezime("Mila Dikic");
-		p.setLbo("12345678910");
-		p.setDatumRodjenja("28. 06. 1997.");
-		p.setIzabraniLekar(l);
-
-		pacijenti.add(p);
+		FileReader in;
+		try {
+			in = new FileReader("lib/lekari.json");
+			Gson gson = new GsonBuilder().create();
+			JsonArray jsonarr = gson.fromJson(in, JsonArray.class);
+			;
+			
+			for (int i = 0; i < jsonarr.size(); i++) {
+				Lekar lekar = gson.fromJson(jsonarr.get(i), Lekar.class);
+				lekari.add(lekar);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*
+		try {
+			in = new FileReader("lib/codebeautify.json");
+			Gson gson = new GsonBuilder().create();
+			JsonArray jsonarray = gson.fromJson(in, JsonArray.class);
+			
+			
+			for (int i = 0; i < jsonarray.size(); i++) {
+				Pacijent pacijent = gson.fromJson(jsonarray.get(i), Pacijent.class);
+				pacijenti.add(pacijent);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		*/
 	}
 
 	private JButton getBtnLekar() {

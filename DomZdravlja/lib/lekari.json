@@ -1,0 +1,33 @@
+[
+ {
+	"IDLekara" : "1111111",
+	"imeIPrezime" : "Nikola Nikolic",
+	"specijalizacija" : "internista",
+	"sifra" : "Nikola1"
+ },
+ {
+	"IDLekara" : "2222222",
+	"imeIPrezime" : "Petar Petrovic",
+	"specijalizacija" : "otorinoralingolog",
+	"sifra" : "Petar22"
+ },
+ {
+	"IDLekara" : "3333333",
+	"imeIPrezime" : "Uros Markovic",
+	"specijalizacija" : "anesteziolog",
+	"sifra" : "Uros333"
+ },
+ {
+	"IDLekara" : "4444444",
+	"imeIPrezime" : "Marko Ilic",
+	"specijalizacija" : "hirurg",
+	"sifra" : "Marko44"
+ },
+ {
+	"IDLekara" : "5555555",
+	"imeIPrezime" : "Ilija Stankovic",
+	"specijalizacija" : "lekar opste prakse",
+	"sifra" : "Ilija55"
+ }
+]
+	
