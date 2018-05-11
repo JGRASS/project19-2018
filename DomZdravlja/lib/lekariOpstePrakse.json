@@ -1,0 +1,32 @@
+[
+ {
+	"IDLekara" : "7777777",
+	"imeIPrezime" : "Aleksandar Jovic",
+	"specijalizacija" : "lekar opste prakse",
+	"sifra" : "Aca7777"
+ },
+ {
+	"IDLekara" : "8888888",
+	"imeIPrezime" : "Zoran Vladimirovic",
+	"specijalizacija" : "otorinoralingolog",
+	"sifra" : "Zoki888"
+ },
+ {
+	"IDLekara" : "9999999",
+	"imeIPrezime" : "Bane Mijatovic",
+	"specijalizacija" : "anesteziolog",
+	"sifra" : "Backo99"
+ },
+ {
+	"IDLekara" : "1234567",
+	"imeIPrezime" : "Marko Gojkovic",
+	"specijalizacija" : "hirurg",
+	"sifra" : "Marko45"
+ },
+{
+	"IDLekara" : "2345678",
+	"imeIPrezime" : "Stojan Cvetkovic",
+	"specijalizacija" : "hirurg",
+	"sifra" : "Stojan8"
+ }
+]

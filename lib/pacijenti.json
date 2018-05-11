@@ -1,0 +1,46 @@
+[
+  {
+    "imePrezime": "Goran Stanojevic",
+    "lbo": "77777777777",
+    "datumRodjenja": "11.06.1968",
+    "izabraniLekar": {
+      "IDLekara": "9999999",
+      "imeIPrezime": "Bane Mijatovic",
+      "specijalizacija": "lekar opste prakse",
+      "sifra": "Backo99"
+    }
+  },
+  {
+    "imePrezime": "Bojan Djekic",
+    "lbo": "22222222222",
+    "datumRodjenja": "09.11.1997",
+    "izabraniLekar": {
+      "IDLekara": "7777777",
+      "imeIPrezime": "Aleksandar Jovic",
+      "specijalizacija": "lekar opste prakse",
+      "sifra": "Aca7777"
+    }
+  },
+  {
+    "imePrezime": "Mila Dikic",
+    "lbo": "33333333333",
+    "datumRodjenja": "19.02.1998",
+    "izabraniLekar": {
+      "IDLekara": "8888888",
+      "imeIPrezime": "Zoran Vladimirovic",
+      "specijalizacija": "lekar opste prakse",
+      "sifra": "Zoki888"
+    }
+  },
+  {
+    "imePrezime": "Sofija Dimitrijevic",
+    "lbo": "44444444444",
+    "datumRodjenja": "26.12.1996",
+    "izabraniLekar": {
+      "IDLekara": "9999999",
+      "imeIPrezime": "Bane Mijatovic",
+      "specijalizacija": "lekar opste prakse",
+      "sifra": "Backo99"
+    }
+  }
+]

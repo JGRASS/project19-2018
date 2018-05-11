@@ -123,8 +123,8 @@ public class DodajPacijentaGUI extends JFrame {
 			comboBox = new JComboBox();
 			comboBox.setBounds(200, 181, 95, 22);
 		}
-		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-			comboBox.addItem(GUIKontroler.gp.lekari.get(i).getImeIPrezime());
+		for (int i = 0; i < GUIKontroler.gp.lekariOpstePrakse.size(); i++) {
+			comboBox.addItem(GUIKontroler.gp.lekariOpstePrakse.get(i).getImeIPrezime());
 		}
 		return comboBox;
 	}

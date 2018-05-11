@@ -3,6 +3,8 @@ package domZdravlja.gui;
 import java.awt.EventQueue;
 import java.awt.Label;
 import java.awt.TextArea;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -12,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.toedter.calendar.JCalendar;
 
 import domZdravlja.klase.DatumIVreme;
@@ -39,11 +43,11 @@ public class GUIKontroler {
 	}
 
 	public static LinkedList<Lekar> vratiSpecijaliste(String specijalizacija) {
-		if (GUIKontroler.gp.lekari.isEmpty())
+		if (GUIKontroler.gp.lekariSpecijaliste.isEmpty())
 			return null;
 		LinkedList<Lekar> lekariSpecijaliste = new LinkedList<Lekar>();
-		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-			Lekar l = GUIKontroler.gp.lekari.get(i);
+		for (int i = 0; i < GUIKontroler.gp.lekariSpecijaliste.size(); i++) {
+			Lekar l = GUIKontroler.gp.lekariSpecijaliste.get(i);
 			if (l.getSpecijalizacija().equals(specijalizacija))
 				lekariSpecijaliste.add(l);
 		}
@@ -62,10 +66,10 @@ public class GUIKontroler {
 	}
 
 	public static Lekar vratiLekara(String imePrezime) {
-		if (GUIKontroler.gp.lekari == null)
+		if (GUIKontroler.gp.lekariSpecijaliste == null)
 			return null;
-		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-			Lekar l = GUIKontroler.gp.lekari.get(i);
+		for (int i = 0; i < GUIKontroler.gp.lekariSpecijaliste.size(); i++) {
+			Lekar l = GUIKontroler.gp.lekariSpecijaliste.get(i);
 			if (l.getImeIPrezime().equals(imePrezime))
 				return l;
 		}
@@ -73,19 +77,24 @@ public class GUIKontroler {
 	}
 
 	public static void dodajPregled(Pregled p) {
-		int indeks = GUIKontroler.gp.lekari.indexOf(p.getLekar());
-		Lekar l = GUIKontroler.gp.lekari.get(indeks);
+		int indeks = GUIKontroler.gp.lekariSpecijaliste.indexOf(p.getLekar());
+		Lekar l = GUIKontroler.gp.lekariSpecijaliste.get(indeks);
 		LinkedList<Pregled> preglediLekara = new LinkedList<Pregled>();
 		preglediLekara = l.getPregledi();
 		preglediLekara.add(p);
-		GUIKontroler.gp.lekari.get(indeks).setPregledi(preglediLekara);
+		GUIKontroler.gp.lekariSpecijaliste.get(indeks).setPregledi(preglediLekara);
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
 	public static Lekar vratiLekara(String lozinka, String ID) {
-		for (int i = 0; i < gp.lekari.size(); i++) {
-			if (gp.lekari.get(i).getIDLekara().equals(ID) && gp.lekari.get(i).getSifra().equals(lozinka)) {
-				return gp.lekari.get(i);
+		for (int i = 0; i < gp.lekariSpecijaliste.size(); i++) {
+			if (gp.lekariSpecijaliste.get(i).getIDLekara().equals(ID) && gp.lekariSpecijaliste.get(i).getSifra().equals(lozinka)) {
+				return gp.lekariSpecijaliste.get(i);
+			}
+		}
+		for (int i = 0; i < gp.lekariOpstePrakse.size(); i++) {
+			if (gp.lekariOpstePrakse.get(i).getIDLekara().equals(ID) && gp.lekariOpstePrakse.get(i).getSifra().equals(lozinka)) {
+				return gp.lekariOpstePrakse.get(i);
 			}
 		}
 		return null;
@@ -118,11 +127,17 @@ public class GUIKontroler {
 			p.setDatumRodjenja(textField_2);
 			p.setImePrezime(textField);
 			p.setLbo(textField_1);
-			for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-				if (GUIKontroler.gp.lekari.get(i).getImeIPrezime().equals(comboBox))
-					p.setIzabraniLekar(GUIKontroler.gp.lekari.get(i));
+			for (int i = 0; i < GUIKontroler.gp.lekariOpstePrakse.size(); i++) {
+				if (GUIKontroler.gp.lekariOpstePrakse.get(i).getImeIPrezime().equals(comboBox))
+					p.setIzabraniLekar(GUIKontroler.gp.lekariOpstePrakse.get(i));
 			}
 			GUIKontroler.gp.pacijenti.add(p);
+			try (FileWriter writer = new FileWriter("lib/pacijenti.json")) {
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+				gson.toJson(gp.pacijenti,writer);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			PacijentGUI pg = new PacijentGUI(p);
 			pg.setTitle(p.getImePrezime() + " LBO: " + p.getLbo());
 			pg.setVisible(true);
@@ -211,9 +226,9 @@ public class GUIKontroler {
 	}
 
 	public static void metoda4(Pacijent pacijent, String comboBox_1) {
-		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-			if (GUIKontroler.gp.lekari.get(i).getImeIPrezime().equals(comboBox_1)) {
-				pacijent.setIzabraniLekar(GUIKontroler.gp.lekari.get(i));
+		for (int i = 0; i < GUIKontroler.gp.lekariOpstePrakse.size(); i++) {
+			if (GUIKontroler.gp.lekariOpstePrakse.get(i).getImeIPrezime().equals(comboBox_1)) {
+				pacijent.setIzabraniLekar(GUIKontroler.gp.lekariOpstePrakse.get(i));
 				break;
 			}
 		}

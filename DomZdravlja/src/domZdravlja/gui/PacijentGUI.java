@@ -68,9 +68,9 @@ public class PacijentGUI extends JFrame {
 		scrollPane.setViewportView(textArea);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(172, 268, 135, 20);
-		for (int i = 0; i < GUIKontroler.gp.lekari.size(); i++) {
-			comboBox.addItem(GUIKontroler.gp.lekari.get(i).getImeIPrezime());
+		comboBox.setBounds(172, 268, 147, 20);
+		for (int i = 0; i < GUIKontroler.gp.lekariOpstePrakse.size(); i++) {
+			comboBox.addItem(GUIKontroler.gp.lekariOpstePrakse.get(i).getImeIPrezime());
 		}
 		contentPane.add(comboBox);
 		

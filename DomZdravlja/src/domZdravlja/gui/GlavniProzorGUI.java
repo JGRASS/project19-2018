@@ -35,7 +35,8 @@ public class GlavniProzorGUI extends JFrame implements Serializable{
 	private JPanel contentPane;
 	private JButton btnLekar;
 	private JButton btnPacijent;
-	public LinkedList<Lekar> lekari = new LinkedList<Lekar>();
+	public LinkedList<Lekar> lekariOpstePrakse = new LinkedList<Lekar>();
+	public LinkedList<Lekar> lekariSpecijaliste = new LinkedList<Lekar>();
 	public LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
 
 	private JMenuBar menuBar;
@@ -69,35 +70,44 @@ public class GlavniProzorGUI extends JFrame implements Serializable{
 		
 		FileReader in;
 		try {
-			in = new FileReader("lib/lekari.json");
+			in = new FileReader("lib/lekariSpecijaliste.json");
 			Gson gson = new GsonBuilder().create();
 			JsonArray jsonarr = gson.fromJson(in, JsonArray.class);
-			;
 			
 			for (int i = 0; i < jsonarr.size(); i++) {
 				Lekar lekar = gson.fromJson(jsonarr.get(i), Lekar.class);
-				lekari.add(lekar);
+				lekariSpecijaliste.add(lekar);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*
 		try {
-			in = new FileReader("lib/codebeautify.json");
+			in = new FileReader("lib/lekariOpstePrakse.json");
 			Gson gson = new GsonBuilder().create();
-			JsonArray jsonarray = gson.fromJson(in, JsonArray.class);
+			JsonArray jsonarr = gson.fromJson(in, JsonArray.class);
 			
+			for (int i = 0; i < jsonarr.size(); i++) {
+				Lekar lekar = gson.fromJson(jsonarr.get(i), Lekar.class);
+				lekariOpstePrakse.add(lekar);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			in = new FileReader("lib/pacijenti.json");
+			Gson gson = new GsonBuilder().create();
+			JsonArray jsonarr = gson.fromJson(in, JsonArray.class);
 			
-			for (int i = 0; i < jsonarray.size(); i++) {
-				Pacijent pacijent = gson.fromJson(jsonarray.get(i), Pacijent.class);
+			for (int i = 0; i < jsonarr.size(); i++) {
+				Pacijent pacijent = gson.fromJson(jsonarr.get(i), Pacijent.class);
 				pacijenti.add(pacijent);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
-		*/
+		}
 	}
 
 	private JButton getBtnLekar() {

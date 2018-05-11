@@ -32,12 +32,12 @@ public class Lekar {
 	 * Zakazani pregledi Lekara.
 	 * @see domZdravlja.klase.Pregled
 	 */
-	private LinkedList<Pregled> pregledi = new LinkedList<Pregled>();
+	public static LinkedList<Pregled> pregledi = new LinkedList<Pregled>();
 	/**
 	 * Pacijenti lekara.
 	 * @see domZdravlja.klase.Pacijent
 	 */
-	private LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
+	public static LinkedList<Pacijent> pacijenti = new LinkedList<Pacijent>();
 
 	/**
 	 * Vraca jedinstveni identifikator lekara.
